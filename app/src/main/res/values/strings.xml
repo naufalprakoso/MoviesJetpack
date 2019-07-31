@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Movies Jetpack</string>
+    <string name="movies">Movies</string>
+    <string name="tv_show">Tv Show</string>
+
+    <string name="title_activity_detail_movie">Detail Movie</string>
+	<string name="overview_sample">lorem\tipsum dolor sit amet</string>
+	<string name="title_sample">Title</string>
+	<string name="year_duration_sample">(2019) - 1h 47m</string>
+	<string name="genre_sample">Action</string>
+	<string name="overview">Overview</string>
+</resources>

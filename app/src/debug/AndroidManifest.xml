@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools"
+		  package="com.naufalprakoso.moviesjetpack">
+
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<application tools:ignore="GoogleAppIndexingWarning">
+		<activity android:name="com.naufalprakoso.moviesjetpack.testing.SingleFragmentActivity"/>
+	</application>
+
+</manifest>
