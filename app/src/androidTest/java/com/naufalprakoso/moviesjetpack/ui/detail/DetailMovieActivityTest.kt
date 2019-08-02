@@ -14,12 +14,11 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.naufalprakoso.moviesjetpack.R
-import com.naufalprakoso.moviesjetpack.utils.FetchingIdlingResource
+import com.naufalprakoso.moviesjetpack.utils.EspressoIdlingResource
 
 class DetailMovieActivityTest {
 
     private val dummyMovie = FakeDataDummy.generateMovies()[0]
-    private val fetchingIdlingResource = FetchingIdlingResource()
 
     @get:Rule
     var activityRule = object : ActivityTestRule<DetailMovieActivity>(DetailMovieActivity::class.java, false, false) {
@@ -35,12 +34,12 @@ class DetailMovieActivityTest {
     @Before
     fun setUp() {
         activityRule.launchActivity(null)
-        IdlingRegistry.getInstance().register(fetchingIdlingResource)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @After
     fun tearDown() {
-
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @Test

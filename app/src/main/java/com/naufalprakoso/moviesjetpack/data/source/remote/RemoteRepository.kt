@@ -3,8 +3,9 @@ package com.naufalprakoso.moviesjetpack.data.source.remote
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.MovieResponse
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowResponse
 import android.os.Handler
+import com.naufalprakoso.moviesjetpack.utils.EspressoIdlingResource
 
-class RemoteRepository(
+open class RemoteRepository(
     private val jsonHelper: JsonHelper
 ) {
     companion object {
@@ -20,42 +21,53 @@ class RemoteRepository(
         }
     }
 
-    fun getAllMovies(): List<MovieResponse> {
-        return jsonHelper.loadMovies()
-    }
-
-    fun getAllTvShows(): List<TvShowResponse> {
-        return jsonHelper.loadTvShows()
-    }
-
-    fun getAllMovies(callback: LoadMoviesCallback) {
+    open fun getAllMovies(callback: LoadMoviesCallback) {
+        EspressoIdlingResource.increment()
         val handler = Handler()
         handler.postDelayed(
-            { callback.onAllMoviesReceived(jsonHelper.loadMovies()) },
+            {
+                callback.onAllMoviesReceived(jsonHelper.loadMovies())
+                EspressoIdlingResource.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS
         )
     }
 
-    fun getAllTvShows(callback: LoadTvShowsCallback) {
+    open fun getAllTvShows(callback: LoadTvShowsCallback) {
+        EspressoIdlingResource.increment()
         val handler = Handler()
         handler.postDelayed(
-            { callback.onAllTvShowsReceived(jsonHelper.loadTvShows()) },
+            {
+                callback.onAllTvShowsReceived(jsonHelper.loadTvShows())
+                EspressoIdlingResource.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS
         )
     }
 
-//    fun getTvShows(courseId: String, callback: LoadTvShowsCallback) {
-//        val handler = Handler()
-//        handler.postDelayed(
-//            { callback.onAllTvShowsReceived(jsonHelper.loadTvShows()) },
-//            SERVICE_LATENCY_IN_MILLIS
-//        )
-//    }
+    open fun getTvShow(tvShowId: String?, callback: GetTvShowCallback) {
+        EspressoIdlingResource.increment()
+        val handler = Handler()
+        handler.postDelayed(
+            {
+                callback.onTvShowReceived(jsonHelper.getTvShow(tvShowId))
+                EspressoIdlingResource.decrement()
+            },
+            SERVICE_LATENCY_IN_MILLIS
+        )
+    }
 
-//    fun getContent(moduleId: String, callback: GetMovieCallback) {
-//        val handler = Handler()
-//        handler.postDelayed({ callback.onMovieReceived(jsonHelper.loadMovies(moduleId)) }, SERVICE_LATENCY_IN_MILLIS)
-//    }
+    open fun getMovie(movieId: String?, callback: GetMovieCallback) {
+        EspressoIdlingResource.increment()
+        val handler = Handler()
+        handler.postDelayed(
+            {
+                callback.onMovieReceived(jsonHelper.getMovie(movieId))
+                EspressoIdlingResource.decrement()
+            },
+            SERVICE_LATENCY_IN_MILLIS
+        )
+    }
 
     interface LoadMoviesCallback {
         fun onAllMoviesReceived(movieResponses: List<MovieResponse>)
@@ -70,13 +82,13 @@ class RemoteRepository(
     }
 
     interface GetMovieCallback {
-        fun onMovieReceived(movieResponse: MovieResponse)
+        fun onMovieReceived(movieResponse: MovieResponse?)
 
         fun onDataNotAvailable()
     }
 
     interface GetTvShowCallback {
-        fun onTvShowReceived(tvShowResponse: TvShowResponse)
+        fun onTvShowReceived(tvShowResponse: TvShowResponse?)
 
         fun onDataNotAvailable()
     }

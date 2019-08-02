@@ -7,10 +7,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.naufalprakoso.moviesjetpack.R
+import com.naufalprakoso.moviesjetpack.utils.EspressoIdlingResource
 import com.naufalprakoso.moviesjetpack.utils.RecyclerViewItemCountAssertion
 
 class MovieFragmentTest {
@@ -21,11 +23,12 @@ class MovieFragmentTest {
     @Before
     fun setUp(){
         activityRule.activity.setFragment(movieFragment)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @After
     fun tearDown(){
-
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @Test
