@@ -19,7 +19,7 @@ import org.jetbrains.anko.startActivity
 class TvShowFragment : Fragment() {
 
     private lateinit var adapter: TvShowAdapter
-    private lateinit var viewModel: TvShowViewModel
+    private var viewModel: TvShowViewModel? = null
 
     companion object {
         fun newInstance(): Fragment {
@@ -39,13 +39,13 @@ class TvShowFragment : Fragment() {
 
         if (activity != null) {
             progress_bar.visibility = View.VISIBLE
-            viewModel = obtainViewModel(activity!!)
+            viewModel = obtainViewModel(activity)
 
             rv_tv_show.layoutManager = LinearLayoutManager(context)
             rv_tv_show.setHasFixedSize(true)
 
-            viewModel.getTvShows()?.removeObservers(this)
-            viewModel.getTvShows()?.observe(viewLifecycleOwner, Observer { tvShows ->
+            viewModel?.getTvShows()?.removeObservers(this)
+            viewModel?.getTvShows()?.observe(viewLifecycleOwner, Observer { tvShows ->
                 progress_bar.visibility = View.GONE
                 adapter = TvShowAdapter(tvShows) {
                     context?.startActivity<DetailMovieActivity>(
@@ -59,8 +59,8 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    private fun obtainViewModel(activity: FragmentActivity): TvShowViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProviders.of(activity, factory).get(TvShowViewModel::class.java)
+    private fun obtainViewModel(activity: FragmentActivity?): TvShowViewModel? {
+        val factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
+        return activity?.let { ViewModelProviders.of(it, factory).get(TvShowViewModel::class.java) }
     }
 }

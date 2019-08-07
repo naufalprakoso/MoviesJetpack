@@ -2,15 +2,37 @@ package com.naufalprakoso.moviesjetpack.data.source.local.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "movies")
 data class MovieEntity(
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
     var id: String? = "",
+
+    @ColumnInfo(name = "title")
     val title: String? = "",
+
+    @ColumnInfo(name = "overview")
     val overview: String? = "",
+
+    @ColumnInfo(name = "rating")
     val rating: String? = "",
+
+    @ColumnInfo(name = "genre")
     val genre: String? = "",
+
+    @ColumnInfo(name = "image")
     val image: String? = "",
+
+    @ColumnInfo(name = "year")
     val year: String? = "",
+
+    @ColumnInfo(name = "duration")
     val duration: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

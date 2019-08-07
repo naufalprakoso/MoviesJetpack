@@ -10,7 +10,6 @@ import com.naufalprakoso.moviesjetpack.data.source.remote.response.MovieResponse
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowResponse
 
 class MovieRepository(
-    private val localRepository: LocalRepository? = null,
     private val remoteRepository: RemoteRepository? = null
 ) : MovieDataSource {
     companion object {
@@ -21,7 +20,7 @@ class MovieRepository(
             if (INSTANCE == null) {
                 synchronized(MovieRepository::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = MovieRepository(localRepository, remoteRepository)
+                        INSTANCE = MovieRepository(remoteRepository)
                     }
                 }
             }

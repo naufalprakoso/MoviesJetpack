@@ -24,7 +24,8 @@
 				android:id="@+id/img_poster"
 				android:layout_width="200dp"
 				android:layout_height="100dp"
-				android:layout_gravity="center"/>
+				android:layout_gravity="center"
+				android:contentDescription="@string/image_poster_description"/>
 
 		<LinearLayout
 				android:layout_width="match_parent"

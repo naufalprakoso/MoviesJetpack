@@ -4,8 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.naufalprakoso.moviesjetpack.data.source.local.LocalRepository
 import com.naufalprakoso.moviesjetpack.data.source.remote.RemoteRepository
 import com.naufalprakoso.moviesjetpack.ui.utils.FakeDataDummy
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 import com.naufalprakoso.moviesjetpack.ui.utils.LiveDataTestUtil
@@ -27,7 +25,7 @@ class MovieRepositoryTest {
 
     private var local = mock(LocalRepository::class.java)
     private var remote = mock(RemoteRepository::class.java)
-    private val movieRepository = FakeMovieRepository(local, remote)
+    private val movieRepository = FakeMovieRepository(remote)
 
     private val movieResponses = FakeDataDummy.generateRemoteDummyMovies()
     private val tvShowResponses = FakeDataDummy.generateRemoteDummyTvShows()
@@ -35,16 +33,6 @@ class MovieRepositoryTest {
     private val movieId = movieDetailResponse.id
     private val tvShowDetailResponse = FakeDataDummy.generateRemoteDummyTvShows()[0]
     private val tvShowId = tvShowDetailResponse.id
-
-    @Before
-    fun setUp() {
-
-    }
-
-    @After
-    fun tearDown() {
-
-    }
 
     @Test
     fun allMovies() {

@@ -9,16 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
-import com.naufalprakoso.moviesjetpack.data.source.MovieRepository
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 
 import kotlinx.android.synthetic.main.activity_detail_movie.*
 import kotlinx.android.synthetic.main.content_detail_movie.*
 
-class DetailMovieActivity(
-    private val movieRepository: MovieRepository? = null
-) : AppCompatActivity() {
+class DetailMovieActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DetailViewModel
 

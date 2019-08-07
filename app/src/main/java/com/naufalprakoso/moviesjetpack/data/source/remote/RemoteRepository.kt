@@ -9,16 +9,7 @@ open class RemoteRepository(
     private val jsonHelper: JsonHelper
 ) {
     companion object {
-        private var INSTANCE: RemoteRepository? = null
         private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
-
-        fun getInstance(helper: JsonHelper): RemoteRepository? {
-            if (INSTANCE == null) {
-                INSTANCE = RemoteRepository(helper)
-            }
-
-            return INSTANCE
-        }
     }
 
     open fun getAllMovies(callback: LoadMoviesCallback) {

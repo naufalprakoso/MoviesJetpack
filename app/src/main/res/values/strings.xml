@@ -9,4 +9,5 @@
 	<string name="year_duration_sample">(2019) - 1h 47m</string>
 	<string name="genre_sample">Action</string>
 	<string name="overview">Overview</string>
+	<string name="image_poster_description">This image for poster movie</string>
 </resources>

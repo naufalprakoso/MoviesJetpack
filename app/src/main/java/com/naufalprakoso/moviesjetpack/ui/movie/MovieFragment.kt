@@ -19,7 +19,7 @@ import org.jetbrains.anko.startActivity
 class MovieFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
-    private lateinit var viewModel: MovieViewModel
+    private var viewModel: MovieViewModel? = null
 
     companion object {
         fun newInstance(): Fragment {
@@ -39,13 +39,13 @@ class MovieFragment : Fragment() {
 
         if (activity != null) {
             progress_bar.visibility = View.VISIBLE
-            viewModel = obtainViewModel(activity!!)
+            viewModel = obtainViewModel(activity)
 
             rv_movie.layoutManager = LinearLayoutManager(context)
             rv_movie.setHasFixedSize(true)
 
-            viewModel.getMovies()?.removeObservers(this)
-            viewModel.getMovies()?.observe(viewLifecycleOwner, Observer { movies ->
+            viewModel?.getMovies()?.removeObservers(this)
+            viewModel?.getMovies()?.observe(viewLifecycleOwner, Observer { movies ->
                 progress_bar.visibility = View.GONE
                 adapter = MovieAdapter(movies) {
                     context?.startActivity<DetailMovieActivity>(
@@ -59,8 +59,8 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun obtainViewModel(activity: FragmentActivity): MovieViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProviders.of(activity, factory).get(MovieViewModel::class.java)
+    private fun obtainViewModel(activity: FragmentActivity?): MovieViewModel? {
+        val factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
+        return activity?.let { ViewModelProviders.of(it, factory).get(MovieViewModel::class.java) }
     }
 }

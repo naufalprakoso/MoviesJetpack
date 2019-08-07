@@ -2,7 +2,6 @@ package com.naufalprakoso.moviesjetpack.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.naufalprakoso.moviesjetpack.data.source.local.LocalRepository
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 import com.naufalprakoso.moviesjetpack.data.source.remote.RemoteRepository
@@ -10,7 +9,6 @@ import com.naufalprakoso.moviesjetpack.data.source.remote.response.MovieResponse
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowResponse
 
 class FakeMovieRepository(
-    private val localRepository: LocalRepository? = null,
     private val remoteRepository: RemoteRepository? = null
 ) : MovieDataSource {
 

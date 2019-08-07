@@ -19,7 +19,8 @@
 				android:layout_width="300dp"
 				android:layout_height="300dp"
 				android:layout_gravity="center"
-				android:layout_marginTop="@dimen/activity_vertical_margin"/>
+				android:layout_marginTop="@dimen/activity_vertical_margin"
+				android:contentDescription="@string/image_poster_description"/>
 
 		<androidx.cardview.widget.CardView
 				android:layout_width="match_parent"
