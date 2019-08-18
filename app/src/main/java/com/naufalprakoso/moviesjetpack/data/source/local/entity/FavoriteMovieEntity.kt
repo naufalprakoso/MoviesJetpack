@@ -7,8 +7,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "movies")
-data class MovieEntity(
+@Entity(tableName = "fav_movies")
+data class FavoriteMovieEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
@@ -61,12 +61,12 @@ data class MovieEntity(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MovieEntity> {
-        override fun createFromParcel(parcel: Parcel): MovieEntity {
-            return MovieEntity(parcel)
+    companion object CREATOR : Parcelable.Creator<FavoriteMovieEntity> {
+        override fun createFromParcel(parcel: Parcel): FavoriteMovieEntity {
+            return FavoriteMovieEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<MovieEntity?> {
+        override fun newArray(size: Int): Array<FavoriteMovieEntity?> {
             return arrayOfNulls(size)
         }
     }

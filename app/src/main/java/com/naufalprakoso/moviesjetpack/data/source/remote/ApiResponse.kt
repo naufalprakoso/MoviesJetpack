@@ -1,23 +1,23 @@
 package com.naufalprakoso.moviesjetpack.data.source.remote
 
-import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 
 class ApiResponse<T>(
-    private val status: StatusResponse? = null,
-    private val message: String? = "",
-    private val body: T? = null
+    val status: StatusResponse,
+    val body: T,
+    val message: String? = ""
 ) {
     companion object {
-//        fun <T> success(body: T?): ApiResponse<T> {
-//            return ApiResponse(StatusResponse.SUCCESS, body.toString(), null)
-//        }
-//
-//        fun <T> empty(msg: String, body: T?): ApiResponse<T> {
-//            return ApiResponse(StatusResponse.SUCCESS, body, msg)
-//        }
-//
-//        fun <T> error(msg: String, body: T?): ApiResponse<T> {
-//            return ApiResponse(StatusResponse.SUCCESS, body, msg)
-//        }
+        fun <T> success(@Nullable body: T): ApiResponse<T> {
+            return ApiResponse(StatusResponse.SUCCESS, body, null)
+        }
+
+        fun <T> empty(msg: String, @Nullable body: T): ApiResponse<T> {
+            return ApiResponse(StatusResponse.EMPTY, body, msg)
+        }
+
+        fun <T> error(msg: String, @Nullable body: T): ApiResponse<T> {
+            return ApiResponse<T>(StatusResponse.ERROR, body, msg)
+        }
     }
 }

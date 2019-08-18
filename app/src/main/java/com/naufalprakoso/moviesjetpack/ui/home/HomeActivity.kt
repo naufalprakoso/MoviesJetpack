@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.naufalprakoso.moviesjetpack.R
+import com.naufalprakoso.moviesjetpack.ui.favorite.FavoriteMovieFragment
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieFragment
 import com.naufalprakoso.moviesjetpack.ui.tvshow.TvShowFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -26,6 +27,9 @@ class HomeActivity : AppCompatActivity() {
             }
             R.id.navigation_tv_show -> {
                 fragment = TvShowFragment.newInstance()
+            }
+            R.id.navigation_favorite -> {
+                fragment = FavoriteMovieFragment.newInstance()
             }
         }
 

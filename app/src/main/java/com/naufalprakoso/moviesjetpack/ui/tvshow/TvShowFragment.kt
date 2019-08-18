@@ -13,8 +13,10 @@ import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.ui.detail.DetailMovieActivity
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
+import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 import org.jetbrains.anko.startActivity
+import android.widget.Toast
 
 class TvShowFragment : Fragment() {
 
@@ -45,16 +47,29 @@ class TvShowFragment : Fragment() {
             rv_tv_show.setHasFixedSize(true)
 
             viewModel?.getTvShows()?.removeObservers(this)
-            viewModel?.getTvShows()?.observe(viewLifecycleOwner, Observer { tvShows ->
-                progress_bar.visibility = View.GONE
-                adapter = TvShowAdapter(tvShows) {
-                    context?.startActivity<DetailMovieActivity>(
-                        Const.DETAIL_MOVIE to it.id,
-                        Const.MOVIE_TYPE to "tv_show"
-                    )
+            viewModel?.setUsername("Naufal Prakoso")
+            viewModel?.getTvShows()?.observe(this, Observer { it ->
+                when(it){
+                    Status.LOADING -> {
+                        progress_bar.visibility = View.VISIBLE
+                    }
+                    Status.SUCCESS -> {
+                        progress_bar.visibility = View.GONE
+
+                        adapter = TvShowAdapter(it.data!!) {
+                            context?.startActivity<DetailMovieActivity>(
+                                Const.DETAIL_MOVIE to it.id,
+                                Const.MOVIE_TYPE to "tv_show"
+                            )
+                        }
+                        adapter.notifyDataSetChanged()
+                        rv_tv_show.adapter = adapter
+                    }
+                    Status.ERROR -> {
+                        progress_bar.visibility = View.GONE
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                adapter.notifyDataSetChanged()
-                rv_tv_show.adapter = adapter
             })
         }
     }

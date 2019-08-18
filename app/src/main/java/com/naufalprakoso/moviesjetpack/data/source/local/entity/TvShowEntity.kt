@@ -12,7 +12,7 @@ data class TvShowEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: String? = "",
+    var id: String = "",
 
     @ColumnInfo(name = "title")
     val title: String? = "",
@@ -36,7 +36,7 @@ data class TvShowEntity(
     val episode: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
+        parcel.readString()!!,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),

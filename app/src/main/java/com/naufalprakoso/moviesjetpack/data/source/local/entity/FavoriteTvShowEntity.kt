@@ -7,8 +7,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "movies")
-data class MovieEntity(
+@Entity(tableName = "fav_tvshows")
+data class FavoriteTvShowEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
@@ -32,8 +32,8 @@ data class MovieEntity(
     @ColumnInfo(name = "year")
     val year: String? = "",
 
-    @ColumnInfo(name = "duration")
-    val duration: String? = ""
+    @ColumnInfo(name = "episode")
+    val episode: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -54,19 +54,19 @@ data class MovieEntity(
         parcel.writeString(genre)
         parcel.writeString(image)
         parcel.writeString(year)
-        parcel.writeString(duration)
+        parcel.writeString(episode)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MovieEntity> {
-        override fun createFromParcel(parcel: Parcel): MovieEntity {
-            return MovieEntity(parcel)
+    companion object CREATOR : Parcelable.Creator<FavoriteTvShowEntity> {
+        override fun createFromParcel(parcel: Parcel): FavoriteTvShowEntity {
+            return FavoriteTvShowEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<MovieEntity?> {
+        override fun newArray(size: Int): Array<FavoriteTvShowEntity?> {
             return arrayOfNulls(size)
         }
     }

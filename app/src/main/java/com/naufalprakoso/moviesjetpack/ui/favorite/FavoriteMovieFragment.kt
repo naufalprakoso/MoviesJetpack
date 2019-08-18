@@ -1,4 +1,4 @@
-package com.naufalprakoso.moviesjetpack.ui.movie
+package com.naufalprakoso.moviesjetpack.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,13 +12,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.ui.detail.DetailMovieActivity
+import com.naufalprakoso.moviesjetpack.ui.movie.MovieAdapter
+import com.naufalprakoso.moviesjetpack.ui.movie.MovieFragment
+import com.naufalprakoso.moviesjetpack.ui.movie.MovieViewModel
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.jetbrains.anko.startActivity
 
-class MovieFragment : Fragment() {
+class FavoriteMovieFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
     private var viewModel: MovieViewModel? = null
@@ -33,7 +36,7 @@ class MovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie, container, false)
+        return inflater.inflate(R.layout.fragment_favorite_movie, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,16 +49,14 @@ class MovieFragment : Fragment() {
             rv_movie.layoutManager = LinearLayoutManager(context)
             rv_movie.setHasFixedSize(true)
 
-            viewModel?.getMovies()?.removeObservers(this)
+            viewModel?.getFavoriteMovies()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
-            viewModel?.getMovies()?.observe(this, Observer { it ->
+            viewModel?.getFavoriteMovies()?.observe(this, Observer { it ->
                 when(it){
                     Status.LOADING -> {
-                        println("LogFragment: Status 1")
                         progress_bar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
-                        println("LogFragment: Status 2")
                         progress_bar.visibility = View.GONE
 
                         adapter = MovieAdapter(it.data!!) {
@@ -68,7 +69,6 @@ class MovieFragment : Fragment() {
                         rv_movie.adapter = adapter
                     }
                     Status.ERROR -> {
-                        println("LogFragment: Status 3")
                         progress_bar.visibility = View.GONE
                         Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
@@ -81,4 +81,5 @@ class MovieFragment : Fragment() {
         val factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
         return activity?.let { ViewModelProviders.of(it, factory).get(MovieViewModel::class.java) }
     }
+
 }

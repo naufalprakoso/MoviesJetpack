@@ -3,61 +3,97 @@ package com.naufalprakoso.moviesjetpack.data.source.remote
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.MovieResponse
 import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowResponse
 import android.os.Handler
+import androidx.lifecycle.LiveData
 import com.naufalprakoso.moviesjetpack.utils.EspressoIdlingResource
+import androidx.lifecycle.MutableLiveData
+import com.naufalprakoso.moviesjetpack.data.source.remote.response.JsonHelper
 
 open class RemoteRepository(
     private val jsonHelper: JsonHelper
 ) {
     companion object {
         private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
+        private var INSTANCE: RemoteRepository? = null
+
+        fun getInstance(jsonHelper: JsonHelper): RemoteRepository? {
+            if (INSTANCE == null) {
+                INSTANCE = RemoteRepository(jsonHelper)
+            }
+
+            return INSTANCE
+        }
     }
 
-    open fun getAllMovies(callback: LoadMoviesCallback) {
+    open fun getAllMoviesAsLiveData(): LiveData<ApiResponse<List<MovieResponse>>> {
         EspressoIdlingResource.increment()
+        val resultMovie = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+
         val handler = Handler()
         handler.postDelayed(
             {
-                callback.onAllMoviesReceived(jsonHelper.loadMovies())
-                EspressoIdlingResource.decrement()
+                resultMovie.value = ApiResponse.success(jsonHelper.loadMovies())
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             },
             SERVICE_LATENCY_IN_MILLIS
         )
+
+        return resultMovie
     }
 
-    open fun getAllTvShows(callback: LoadTvShowsCallback) {
+    open fun getAllTvShowsAsLiveData(): LiveData<ApiResponse<List<TvShowResponse>>> {
         EspressoIdlingResource.increment()
+        val resultTvShow = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
+
         val handler = Handler()
         handler.postDelayed(
             {
-                callback.onAllTvShowsReceived(jsonHelper.loadTvShows())
-                EspressoIdlingResource.decrement()
+                resultTvShow.value = ApiResponse.success(jsonHelper.loadTvShows())
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             },
             SERVICE_LATENCY_IN_MILLIS
         )
+
+        return resultTvShow
     }
 
-    open fun getTvShow(tvShowId: String?, callback: GetTvShowCallback) {
+    open fun getTvShowAsLiveData(tvShowId: String?): LiveData<ApiResponse<TvShowResponse>> {
         EspressoIdlingResource.increment()
+        val resultTvShow = MutableLiveData<ApiResponse<TvShowResponse>>()
+
         val handler = Handler()
         handler.postDelayed(
             {
-                callback.onTvShowReceived(jsonHelper.getTvShow(tvShowId))
-                EspressoIdlingResource.decrement()
+                resultTvShow.value = jsonHelper.getTvShow(tvShowId)?.let { ApiResponse.success(it) }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             },
             SERVICE_LATENCY_IN_MILLIS
         )
+
+        return resultTvShow
     }
 
-    open fun getMovie(movieId: String?, callback: GetMovieCallback) {
+    open fun getMovieAsLiveData(movieId: String?): LiveData<ApiResponse<MovieResponse>> {
         EspressoIdlingResource.increment()
+        val resultMovie = MutableLiveData<ApiResponse<MovieResponse>>()
+
         val handler = Handler()
         handler.postDelayed(
             {
-                callback.onMovieReceived(jsonHelper.getMovie(movieId))
-                EspressoIdlingResource.decrement()
+                resultMovie.value = jsonHelper.getMovie(movieId)?.let { ApiResponse.success(it) }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             },
             SERVICE_LATENCY_IN_MILLIS
         )
+
+        return resultMovie
     }
 
     interface LoadMoviesCallback {

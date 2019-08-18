@@ -4,15 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
+import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 
 @Database(
-    entities = [MovieEntity::class, TvShowEntity::class],
+    entities = [MovieEntity::class, TvShowEntity::class, FavoriteMovieEntity::class, FavoriteTvShowEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class MovieDatabase : RoomDatabase(){
+    abstract fun movieDao(): MovieDao
+
     companion object{
         private var INSTANCE: MovieDatabase? = null
         private val sLock = Object()

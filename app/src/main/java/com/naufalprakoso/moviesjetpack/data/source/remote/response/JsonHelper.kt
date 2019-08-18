@@ -1,8 +1,6 @@
-package com.naufalprakoso.moviesjetpack.data.source.remote
+package com.naufalprakoso.moviesjetpack.data.source.remote.response
 
 import android.app.Application
-import com.naufalprakoso.moviesjetpack.data.source.remote.response.MovieResponse
-import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowResponse
 import java.io.IOException
 import org.json.JSONException
 import org.json.JSONObject
