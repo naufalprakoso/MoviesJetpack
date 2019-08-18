@@ -67,14 +67,14 @@ class DetailMovieActivity : AppCompatActivity() {
                                     fab.isEnabled = true
 
                                     if (checkData.data?.size!! > 0) {
-                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        fab.setImageResource(R.drawable.ic_star_white)
 
                                         fab.setOnClickListener { view ->
                                             viewModel.unsetFavoriteMovie(checkData.data[0])
                                             Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                                            fab.setImageResource(R.drawable.ic_star_border_white)
                                         }
                                     } else {
                                         fab.setOnClickListener { view ->
@@ -93,7 +93,7 @@ class DetailMovieActivity : AppCompatActivity() {
                                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                            fab.setImageResource(R.drawable.ic_star_white)
                                         }
                                     }
                                 }
@@ -139,14 +139,14 @@ class DetailMovieActivity : AppCompatActivity() {
                                     fab.isEnabled = true
 
                                     if (checkData.data?.size!! > 0) {
-                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        fab.setImageResource(R.drawable.ic_star_white)
 
                                         fab.setOnClickListener { view ->
                                             viewModel.unsetFavoriteTvShow(checkData.data[0])
                                             Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                                            fab.setImageResource(R.drawable.ic_star_border_white)
                                         }
                                     } else {
                                         fab.setOnClickListener { view ->
@@ -165,7 +165,7 @@ class DetailMovieActivity : AppCompatActivity() {
                                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                            fab.setImageResource(R.drawable.ic_star_white)
                                         }
                                     }
                                 }

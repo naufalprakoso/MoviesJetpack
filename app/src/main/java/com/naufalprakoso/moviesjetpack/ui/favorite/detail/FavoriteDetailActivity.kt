@@ -69,7 +69,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
                                     fab.isEnabled = true
 
                                     if (checkData.data?.size!! > 0) {
-                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        fab.setImageResource(R.drawable.ic_star_white)
 
                                         fab.setOnClickListener {
                                             viewModel.unsetFavoriteMovie(checkData.data[0])
@@ -94,7 +94,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
                                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                            fab.setImageResource(R.drawable.ic_star_white)
                                         }
                                     }
                                 }
@@ -140,7 +140,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
                                     fab.isEnabled = true
 
                                     if (checkData.data?.size!! > 0) {
-                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        fab.setImageResource(R.drawable.ic_star_white)
 
                                         fab.setOnClickListener {
                                             viewModel.unsetFavoriteTvShow(checkData.data[0])
@@ -165,7 +165,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
                                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show()
 
-                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                            fab.setImageResource(R.drawable.ic_star_white)
                                         }
                                     }
                                 }
