@@ -2,6 +2,7 @@ package com.naufalprakoso.moviesjetpack.data.source.local.room
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
@@ -10,6 +11,7 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 
 @Dao
 interface MovieDao{
+    @Deprecated("This method not implemented a pagination")
     @WorkerThread
     @Query("SELECT * FROM movies")
     fun getMovies(): LiveData<List<MovieEntity>>
@@ -17,6 +19,7 @@ interface MovieDao{
     @Query("SELECT * FROM movies WHERE id = :movieId")
     fun getMovie(movieId: String): LiveData<MovieEntity>
 
+    @Deprecated("This method not implemented a pagination")
     @WorkerThread
     @Query("SELECT * FROM tvshows")
     fun getTvShows(): LiveData<List<TvShowEntity>>
@@ -31,6 +34,7 @@ interface MovieDao{
     fun insertTvShow(tvShows: List<TvShowEntity>)
 
     //    Favorite
+    @Deprecated("This method not implemented a pagination")
     @WorkerThread
     @Query("SELECT * FROM fav_movies")
     fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>
@@ -38,6 +42,7 @@ interface MovieDao{
     @Query("SELECT * FROM fav_movies WHERE id = :movieId")
     fun getFavoriteMovie(movieId: String): LiveData<FavoriteMovieEntity>
 
+    @Deprecated("This method not implemented a pagination")
     @WorkerThread
     @Query("SELECT * FROM fav_tvshows")
     fun getFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>
@@ -57,9 +62,28 @@ interface MovieDao{
     @Delete
     fun deleteFavoriteTvShow(tvShow: FavoriteTvShowEntity)
 
+    @WorkerThread
     @Query("SELECT id FROM fav_movies WHERE id = :movieId")
     fun checkFavoriteMovieState(movieId: String): LiveData<List<FavoriteMovieEntity>>
 
+    @WorkerThread
     @Query("SELECT id FROM fav_tvshows WHERE id = :tvShowId")
     fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>
+
+    // Paging
+    @WorkerThread
+    @Query("SELECT * FROM movies")
+    fun getMovieAsPaged(): DataSource.Factory<Int, MovieEntity>
+
+    @WorkerThread
+    @Query("SELECT * FROM tvshows")
+    fun getTvShowAsPaged(): DataSource.Factory<Int, TvShowEntity>
+
+    @WorkerThread
+    @Query("SELECT * FROM fav_movies")
+    fun getFavoriteMovieAsPaged(): DataSource.Factory<Int, FavoriteMovieEntity>
+
+    @WorkerThread
+    @Query("SELECT * FROM fav_tvshows")
+    fun getFavoriteTvShowAsPaged(): DataSource.Factory<Int, FavoriteTvShowEntity>
 }

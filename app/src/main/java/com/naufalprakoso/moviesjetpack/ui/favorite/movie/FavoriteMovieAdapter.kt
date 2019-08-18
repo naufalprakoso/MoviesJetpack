@@ -11,6 +11,7 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEnt
 import kotlinx.android.synthetic.main.items_movie.view.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 
+@Deprecated("This is an old adapter without pagination")
 class FavoriteMovieAdapter(
     private val movies: List<FavoriteMovieEntity>,
     private val listener: (FavoriteMovieEntity) -> Unit

@@ -21,7 +21,7 @@ import org.jetbrains.anko.startActivity
 
 class FavoriteTvShowFragment : Fragment() {
 
-    private lateinit var adapter: FavoriteTvShowAdapter
+    private lateinit var adapter: FavoriteTvShowPagedAdapter
     private var viewModel: TvShowViewModel? = null
 
     companion object {
@@ -47,9 +47,9 @@ class FavoriteTvShowFragment : Fragment() {
             rv_movie.layoutManager = LinearLayoutManager(context)
             rv_movie.setHasFixedSize(true)
 
-            viewModel?.getFavoriteTvShows()?.removeObservers(this)
+            viewModel?.getFavoriteTvShowsPaged()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
-            viewModel?.getFavoriteTvShows()?.observe(this, Observer { it ->
+            viewModel?.getFavoriteTvShowsPaged()?.observe(this, Observer { it ->
                 when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
@@ -64,12 +64,13 @@ class FavoriteTvShowFragment : Fragment() {
                             txt_empty.visibility = View.GONE
                             rv_movie.visibility = View.VISIBLE
 
-                            adapter = FavoriteTvShowAdapter(it.data) {
+                            adapter = FavoriteTvShowPagedAdapter(it.data) {
                                 context?.startActivity<FavoriteDetailActivity>(
                                     Const.DETAIL_MOVIE to it.id,
                                     Const.MOVIE_TYPE to "tv_show"
                                 )
                             }
+                            adapter.submitList(it.data)
                             adapter.notifyDataSetChanged()
                             rv_movie.adapter = adapter
                         }

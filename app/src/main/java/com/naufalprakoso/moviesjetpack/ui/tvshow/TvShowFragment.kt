@@ -20,7 +20,7 @@ import android.widget.Toast
 
 class TvShowFragment : Fragment() {
 
-    private lateinit var adapter: TvShowAdapter
+    private lateinit var adapter: TvShowPagedAdapter
     private var viewModel: TvShowViewModel? = null
 
     companion object {
@@ -46,9 +46,9 @@ class TvShowFragment : Fragment() {
             rv_tv_show.layoutManager = LinearLayoutManager(context)
             rv_tv_show.setHasFixedSize(true)
 
-            viewModel?.getTvShows()?.removeObservers(this)
+            viewModel?.getTvShowsPaged()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
-            viewModel?.getTvShows()?.observe(this, Observer { it ->
+            viewModel?.getTvShowsPaged()?.observe(this, Observer { it ->
                 when(it.status){
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
@@ -56,13 +56,14 @@ class TvShowFragment : Fragment() {
                     Status.SUCCESS -> {
                         progress_bar.visibility = View.GONE
 
-                        adapter = TvShowAdapter(it.data!!) {
+                        adapter = TvShowPagedAdapter(it.data!!) {
                             context?.startActivity<DetailMovieActivity>(
                                 Const.DETAIL_MOVIE to it.id,
                                 Const.MOVIE_TYPE to "tv_show"
                             )
                         }
                         adapter.notifyDataSetChanged()
+                        adapter.submitList(it.data)
                         rv_tv_show.adapter = adapter
                     }
                     Status.ERROR -> {

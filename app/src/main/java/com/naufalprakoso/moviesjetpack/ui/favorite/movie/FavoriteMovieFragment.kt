@@ -21,7 +21,7 @@ import org.jetbrains.anko.startActivity
 
 class FavoriteMovieFragment : Fragment() {
 
-    private lateinit var adapter: FavoriteMovieAdapter
+    private lateinit var adapter: FavoriteMoviePagedAdapter
     private var viewModel: MovieViewModel? = null
 
     companion object {
@@ -47,9 +47,9 @@ class FavoriteMovieFragment : Fragment() {
             rv_movie.layoutManager = LinearLayoutManager(context)
             rv_movie.setHasFixedSize(true)
 
-            viewModel?.getFavoriteMovies()?.removeObservers(this)
+            viewModel?.getFavoriteMoviesPaged()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
-            viewModel?.getFavoriteMovies()?.observe(this, Observer { it ->
+            viewModel?.getFavoriteMoviesPaged()?.observe(this, Observer { it ->
                 when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
@@ -64,12 +64,13 @@ class FavoriteMovieFragment : Fragment() {
                             txt_empty.visibility = View.GONE
                             rv_movie.visibility = View.VISIBLE
 
-                            adapter = FavoriteMovieAdapter(it.data) {
+                            adapter = FavoriteMoviePagedAdapter(it.data) {
                                 context?.startActivity<FavoriteDetailActivity>(
                                     Const.DETAIL_MOVIE to it.id,
                                     Const.MOVIE_TYPE to "movie"
                                 )
                             }
+                            adapter.submitList(it.data)
                             adapter.notifyDataSetChanged()
                             rv_movie.adapter = adapter
                         }

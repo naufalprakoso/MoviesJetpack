@@ -1,6 +1,7 @@
 package com.naufalprakoso.moviesjetpack.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.naufalprakoso.moviesjetpack.data.source.local.LocalRepository
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
@@ -12,6 +13,7 @@ import com.naufalprakoso.moviesjetpack.data.source.remote.response.TvShowRespons
 import com.naufalprakoso.moviesjetpack.utils.AppExecutors
 import com.naufalprakoso.moviesjetpack.vo.Resource
 import com.naufalprakoso.moviesjetpack.data.source.remote.ApiResponse
+import androidx.paging.LivePagedListBuilder
 
 class MovieRepository(
     private val localRepository: LocalRepository? = null,
@@ -121,9 +123,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: MovieEntity): Boolean = false
-
             override fun createCall(): LiveData<ApiResponse<MovieResponse>>? = null
-
             override fun saveCallResult(data: MovieResponse) {}
         }.asLiveData()
     }
@@ -135,9 +135,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: TvShowEntity): Boolean = false
-
             override fun createCall(): LiveData<ApiResponse<TvShowResponse>>? = null
-
             override fun saveCallResult(data: TvShowResponse) {}
         }.asLiveData()
     }
@@ -150,9 +148,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: List<FavoriteMovieEntity>): Boolean = false
-
             public override fun createCall(): LiveData<ApiResponse<List<FavoriteMovieEntity>>>? = null
-
             override fun saveCallResult(data: List<FavoriteMovieEntity>) {}
         }.asLiveData()
     }
@@ -164,9 +160,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: List<FavoriteTvShowEntity>): Boolean = false
-
             public override fun createCall(): LiveData<ApiResponse<List<FavoriteTvShowEntity>>>? = null
-
             override fun saveCallResult(data: List<FavoriteTvShowEntity>) {}
         }.asLiveData()
     }
@@ -178,9 +172,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: FavoriteMovieEntity): Boolean = false
-
             override fun createCall(): LiveData<ApiResponse<FavoriteMovieEntity>>? = null
-
             override fun saveCallResult(data: FavoriteMovieEntity) {}
         }.asLiveData()
     }
@@ -192,9 +184,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: FavoriteTvShowEntity): Boolean = false
-
             override fun createCall(): LiveData<ApiResponse<FavoriteTvShowEntity>>? = null
-
             override fun saveCallResult(data: FavoriteTvShowEntity) {}
         }.asLiveData()
     }
@@ -230,9 +220,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: List<FavoriteMovieEntity>): Boolean = false
-
             public override fun createCall(): LiveData<ApiResponse<List<FavoriteMovieEntity>>>? = null
-
             override fun saveCallResult(data: List<FavoriteMovieEntity>) {}
         }.asLiveData()
     }
@@ -244,9 +232,98 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: List<FavoriteTvShowEntity>): Boolean = false
-
             public override fun createCall(): LiveData<ApiResponse<List<FavoriteTvShowEntity>>>? = null
+            override fun saveCallResult(data: List<FavoriteTvShowEntity>) {}
+        }.asLiveData()
+    }
 
+    override fun getMoviesPaged(): LiveData<Resource<PagedList<MovieEntity>>> {
+        return object : NetworkBoundResource<PagedList<MovieEntity>, List<MovieResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
+                return LivePagedListBuilder(localRepository?.getAllMoviesPaged()!!, 20).build()
+            }
+
+            override fun shouldFetch(data: PagedList<MovieEntity>): Boolean = data.isEmpty()
+            override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>>? =
+                remoteRepository?.getAllMoviesAsLiveData()!!
+
+            override fun saveCallResult(data: List<MovieResponse>) {
+                val movieEntities = ArrayList<MovieEntity>()
+
+                for (movieResponse in data) {
+                    movieEntities.add(
+                        MovieEntity(
+                            movieResponse.id.toString(),
+                            movieResponse.title,
+                            movieResponse.overview,
+                            movieResponse.rating,
+                            movieResponse.genre,
+                            movieResponse.image,
+                            movieResponse.year,
+                            movieResponse.duration
+                        )
+                    )
+                }
+
+                localRepository?.insertMovies(movieEntities)
+            }
+        }.asLiveData()
+    }
+
+    override fun getTvShowsPaged(): LiveData<Resource<PagedList<TvShowEntity>>> {
+        return object : NetworkBoundResource<PagedList<TvShowEntity>, List<TvShowResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
+                return LivePagedListBuilder(localRepository?.getAllTvShowsPaged()!!, 20).build()
+            }
+
+            override fun shouldFetch(data: PagedList<TvShowEntity>): Boolean = data.isEmpty()
+            override fun createCall(): LiveData<ApiResponse<List<TvShowResponse>>>? =
+                remoteRepository?.getAllTvShowsAsLiveData()!!
+
+            override fun saveCallResult(data: List<TvShowResponse>) {
+                val tvShowEntities = ArrayList<TvShowEntity>()
+
+                for (tvShowResponse in data) {
+                    tvShowEntities.add(
+                        TvShowEntity(
+                            tvShowResponse.id.toString(),
+                            tvShowResponse.title,
+                            tvShowResponse.overview,
+                            tvShowResponse.rating,
+                            tvShowResponse.genre,
+                            tvShowResponse.image,
+                            tvShowResponse.year,
+                            tvShowResponse.episode
+                        )
+                    )
+                }
+
+                localRepository?.insertTvShows(tvShowEntities)
+            }
+        }.asLiveData()
+    }
+
+    override fun getFavoriteMoviesPaged(): LiveData<Resource<PagedList<FavoriteMovieEntity>>> {
+        return object : NetworkBoundResource<PagedList<FavoriteMovieEntity>, List<FavoriteMovieEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<FavoriteMovieEntity>> {
+                return LivePagedListBuilder(localRepository?.getAllFavoriteMoviesPaged()!!, 20).build()
+            }
+
+            override fun shouldFetch(data: PagedList<FavoriteMovieEntity>): Boolean = false
+            override fun createCall(): LiveData<ApiResponse<List<FavoriteMovieEntity>>>? = null
+            override fun saveCallResult(data: List<FavoriteMovieEntity>) {}
+        }.asLiveData()
+    }
+
+    override fun getFavoriteTvShowsPaged(): LiveData<Resource<PagedList<FavoriteTvShowEntity>>> {
+        return object :
+            NetworkBoundResource<PagedList<FavoriteTvShowEntity>, List<FavoriteTvShowEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<FavoriteTvShowEntity>> {
+                return LivePagedListBuilder(localRepository?.getAllFavoriteTvShowsPaged()!!, 20).build()
+            }
+
+            override fun shouldFetch(data: PagedList<FavoriteTvShowEntity>): Boolean = false
+            override fun createCall(): LiveData<ApiResponse<List<FavoriteTvShowEntity>>>? = null
             override fun saveCallResult(data: List<FavoriteTvShowEntity>) {}
         }.asLiveData()
     }

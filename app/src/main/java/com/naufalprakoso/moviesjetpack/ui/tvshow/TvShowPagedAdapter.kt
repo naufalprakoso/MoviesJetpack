@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
@@ -11,11 +13,20 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 
-@Deprecated("This is an old adapter without pagination")
-class TvShowAdapter(
+class TvShowPagedAdapter(
     private val tvShows: List<TvShowEntity>,
     private val listener: (TvShowEntity) -> Unit
-) : RecyclerView.Adapter<TvShowAdapter.ViewHolder>(){
+) : PagedListAdapter<TvShowEntity, TvShowPagedAdapter.ViewHolder>(TvShowPagedAdapter.TvShowsDiffCallback) {
+
+    companion object {
+        val TvShowsDiffCallback = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean =
+                oldItem == newItem
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.items_movie, parent, false))
@@ -27,12 +38,12 @@ class TvShowAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @SuppressLint("SetTextI18n")
-        fun bindItem(tvShow: TvShowEntity, listener: (TvShowEntity) -> Unit){
+        fun bindItem(tvShow: TvShowEntity, listener: (TvShowEntity) -> Unit) {
             itemView.tv_title.text = tvShow.title
 
-            if (tvShow.overview?.length!! > 100){
+            if (tvShow.overview?.length!! > 100) {
                 itemView.tv_overview.text = "${tvShow.overview.substring(0, 100)}..."
-            }else{
+            } else {
                 itemView.tv_overview.text = tvShow.overview
             }
 

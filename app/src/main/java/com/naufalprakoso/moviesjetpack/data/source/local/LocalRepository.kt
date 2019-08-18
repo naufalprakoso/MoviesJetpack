@@ -1,6 +1,7 @@
 package com.naufalprakoso.moviesjetpack.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
@@ -47,10 +48,12 @@ class LocalRepository(
     }
 
 //    Favorite
+    @Deprecated("This method not implemented a pagination")
     fun getAllFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>{
         return movieDao.getFavoriteMovies()
     }
 
+    @Deprecated("This method not implemented a pagination")
     fun getAllFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>{
         return movieDao.getFavoriteTvShows()
     }
@@ -85,5 +88,22 @@ class LocalRepository(
 
     fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>{
         return movieDao.checkFavoriteTvShowState(tvShowId)
+    }
+
+    // Paging
+    fun getAllMoviesPaged(): DataSource.Factory<Int, MovieEntity>{
+        return movieDao.getMovieAsPaged()
+    }
+
+    fun getAllTvShowsPaged(): DataSource.Factory<Int, TvShowEntity>{
+        return movieDao.getTvShowAsPaged()
+    }
+
+    fun getAllFavoriteMoviesPaged(): DataSource.Factory<Int, FavoriteMovieEntity>{
+        return movieDao.getFavoriteMovieAsPaged()
+    }
+
+    fun getAllFavoriteTvShowsPaged(): DataSource.Factory<Int, FavoriteTvShowEntity>{
+        return movieDao.getFavoriteTvShowAsPaged()
     }
 }
