@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.ui.favorite.main.FavoriteFragment
-import com.naufalprakoso.moviesjetpack.ui.favorite.movie.FavoriteMovieFragment
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieFragment
 import com.naufalprakoso.moviesjetpack.ui.tvshow.TvShowFragment
 import kotlinx.android.synthetic.main.activity_home.*

@@ -13,7 +13,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
-    protected fun onFetchFailed() {}
+    private fun onFetchFailed() {}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
@@ -45,9 +45,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>(
         result.addSource(
             dbSource
         ) { newData -> result.setValue(Resource.loading(newData)) }
-        apiResponse?.let {
-            result.addSource(it) { response ->
-                result.removeSource(it)
+        apiResponse?.let { data ->
+            result.addSource(data) { response ->
+                result.removeSource(data)
                 result.removeSource(dbSource)
 
                 when (response.status) {

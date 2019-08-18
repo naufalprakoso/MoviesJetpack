@@ -12,7 +12,6 @@
 	<string name="image_poster_description">This image for poster movie</string>
 	<string name="favorite">Favorite</string>
 
-	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="title_activity_favorite_detail">Favorite Movie Detail</string>
 	<string name="empty">There is no data here!</string>
 	<string name="favorite_tv_show">Favorite Tv Show</string>

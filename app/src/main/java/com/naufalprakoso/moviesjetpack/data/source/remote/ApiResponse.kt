@@ -17,7 +17,7 @@ class ApiResponse<T>(
         }
 
         fun <T> error(msg: String, @Nullable body: T): ApiResponse<T> {
-            return ApiResponse<T>(StatusResponse.ERROR, body, msg)
+            return ApiResponse(StatusResponse.ERROR, body, msg)
         }
     }
 }
