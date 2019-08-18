@@ -1,4 +1,4 @@
-package com.naufalprakoso.moviesjetpack.ui.favorite
+package com.naufalprakoso.moviesjetpack.ui.favorite.movie
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,14 +12,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.ui.favorite.detail.FavoriteDetailActivity
-import com.naufalprakoso.moviesjetpack.ui.favorite.movie.FavoriteMovieAdapter
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieViewModel
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_favorite_movie.*
-import kotlinx.android.synthetic.main.fragment_movie.progress_bar
-import kotlinx.android.synthetic.main.fragment_movie.rv_movie
 import org.jetbrains.anko.startActivity
 
 class FavoriteMovieFragment : Fragment() {

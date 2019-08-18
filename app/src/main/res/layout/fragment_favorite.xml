@@ -1,0 +1,27 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		tools:context="com.naufalprakoso.moviesjetpack.ui.favorite.main.FavoriteFragment">
+
+	<com.google.android.material.appbar.AppBarLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:theme="@style/AppTheme.AppBarOverlay">
+
+		<com.google.android.material.tabs.TabLayout
+				android:id="@+id/tab_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?attr/colorPrimary"/>
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<androidx.viewpager.widget.ViewPager
+			android:id="@+id/view_pager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

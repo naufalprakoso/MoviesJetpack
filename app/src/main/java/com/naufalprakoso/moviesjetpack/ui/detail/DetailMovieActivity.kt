@@ -47,10 +47,16 @@ class DetailMovieActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         fab.isEnabled = true
 
-                        if (it.data?.size!! == 0) {
-                            fab.setImageResource(R.drawable.ic_bookmark_white)
-                        } else {
+                        if (it.data?.size!! > 0) {
                             fab.setImageResource(R.drawable.ic_bookmarked_white)
+
+                            fab.setOnClickListener { view ->
+                                viewModel.unsetFavoriteMovie(it.data[0])
+                                Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show()
+
+                                fab.setImageResource(R.drawable.ic_bookmark_white)
+                            }
                         }
                     }
                     Status.ERROR -> {
@@ -113,10 +119,16 @@ class DetailMovieActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         fab.isEnabled = true
 
-                        if (it.data?.size!! == 0) {
-                            fab.setImageResource(R.drawable.ic_bookmark_white)
-                        } else {
+                        if (it.data?.size!! > 0) {
                             fab.setImageResource(R.drawable.ic_bookmarked_white)
+
+                            fab.setOnClickListener { view ->
+                                viewModel.unsetFavoriteTvShow(it.data[0])
+                                Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show()
+
+                                fab.setImageResource(R.drawable.ic_bookmark_white)
+                            }
                         }
                     }
                     Status.ERROR -> {
@@ -146,7 +158,7 @@ class DetailMovieActivity : AppCompatActivity() {
                         tv_year_duration.text = "(${tvShow?.year}) - ${tvShow?.episode} episode(s)"
 
                         fab.setOnClickListener { view ->
-                            val favoriteTvShow = FavoriteTvShowEntity(
+                            val movieTvShow = FavoriteTvShowEntity(
                                 tvShow?.id.toString(),
                                 tvShow?.title,
                                 tvShow?.overview,
@@ -157,9 +169,11 @@ class DetailMovieActivity : AppCompatActivity() {
                                 tvShow?.episode
                             )
 
-                            viewModel.setFavoriteTvShow(favoriteTvShow)
+                            viewModel.setFavoriteTvShow(movieTvShow)
                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show()
+
+                            fab.setImageResource(R.drawable.ic_bookmarked_white)
                         }
                     }
                     Status.ERROR -> {
