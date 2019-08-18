@@ -51,11 +51,9 @@ class MovieFragment : Fragment() {
             viewModel?.getMovies()?.observe(this, Observer { it ->
                 when(it.status){
                     Status.LOADING -> {
-                        println("LogFragment: Status 1")
                         progress_bar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
-                        println("LogFragment: Status 2")
                         progress_bar.visibility = View.GONE
 
                         adapter = MovieAdapter(it.data!!) {
@@ -68,7 +66,6 @@ class MovieFragment : Fragment() {
                         rv_movie.adapter = adapter
                     }
                     Status.ERROR -> {
-                        println("LogFragment: Status 3")
                         progress_bar.visibility = View.GONE
                         Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }

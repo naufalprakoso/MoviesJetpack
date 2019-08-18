@@ -30,7 +30,7 @@ interface MovieDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTvShow(tvShows: List<TvShowEntity>)
 
-//    Favorite
+    //    Favorite
     @WorkerThread
     @Query("SELECT * FROM fav_movies")
     fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>
@@ -56,4 +56,10 @@ interface MovieDao{
 
     @Delete
     fun deleteFavoriteTvShow(tvShow: FavoriteTvShowEntity)
+
+    @Query("SELECT id FROM fav_movies WHERE id = :movieId")
+    fun checkFavoriteMovieState(movieId: String): LiveData<List<FavoriteMovieEntity>>
+
+    @Query("SELECT id FROM fav_tvshows WHERE id = :tvShowId")
+    fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>
 }

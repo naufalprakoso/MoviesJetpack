@@ -11,14 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufalprakoso.moviesjetpack.R
-import com.naufalprakoso.moviesjetpack.ui.detail.DetailMovieActivity
+import com.naufalprakoso.moviesjetpack.ui.favorite.detail.FavoriteDetailActivity
 import com.naufalprakoso.moviesjetpack.ui.favorite.movie.FavoriteMovieAdapter
-import com.naufalprakoso.moviesjetpack.ui.movie.MovieFragment
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieViewModel
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
-import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.android.synthetic.main.fragment_favorite_movie.*
+import kotlinx.android.synthetic.main.fragment_movie.progress_bar
+import kotlinx.android.synthetic.main.fragment_movie.rv_movie
 import org.jetbrains.anko.startActivity
 
 class FavoriteMovieFragment : Fragment() {
@@ -28,7 +29,7 @@ class FavoriteMovieFragment : Fragment() {
 
     companion object {
         fun newInstance(): Fragment {
-            return MovieFragment()
+            return FavoriteMovieFragment()
         }
     }
 
@@ -52,21 +53,30 @@ class FavoriteMovieFragment : Fragment() {
             viewModel?.getFavoriteMovies()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getFavoriteMovies()?.observe(this, Observer { it ->
-                when(it.status){
+                when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
                         progress_bar.visibility = View.GONE
 
-                        adapter = FavoriteMovieAdapter(it.data!!) {
-                            context?.startActivity<DetailMovieActivity>(
-                                Const.DETAIL_MOVIE to it.id,
-                                Const.MOVIE_TYPE to "movie"
-                            )
+                        if (it.data?.isEmpty()!!) {
+                            txt_empty.visibility = View.VISIBLE
+                            rv_movie.visibility = View.GONE
+                        } else {
+                            txt_empty.visibility = View.GONE
+                            rv_movie.visibility = View.VISIBLE
+
+                            adapter = FavoriteMovieAdapter(it.data) {
+                                context?.startActivity<FavoriteDetailActivity>(
+                                    Const.DETAIL_MOVIE to it.id,
+                                    Const.MOVIE_TYPE to "movie"
+                                )
+                            }
+                            adapter.notifyDataSetChanged()
+                            rv_movie.adapter = adapter
                         }
-                        adapter.notifyDataSetChanged()
-                        rv_movie.adapter = adapter
+
                     }
                     Status.ERROR -> {
                         progress_bar.visibility = View.GONE

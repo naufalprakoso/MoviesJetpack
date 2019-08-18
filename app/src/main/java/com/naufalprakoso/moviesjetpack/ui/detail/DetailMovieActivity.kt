@@ -39,6 +39,27 @@ class DetailMovieActivity : AppCompatActivity() {
         viewModel.setUsername("Naufal Prakoso")
 
         if (movieType == "movie") {
+            viewModel.checkFavoriteMoviesState().observe(this, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        fab.isEnabled = false
+                    }
+                    Status.SUCCESS -> {
+                        fab.isEnabled = true
+
+                        if (it.data?.size!! == 0) {
+                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                        } else {
+                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                        }
+                    }
+                    Status.ERROR -> {
+                        fab.isEnabled = false
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
             viewModel.getMovie().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -73,6 +94,8 @@ class DetailMovieActivity : AppCompatActivity() {
                             viewModel.setFavoriteMovie(movieTvShow)
                             Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show()
+
+                            fab.setImageResource(R.drawable.ic_bookmarked_white)
                         }
                     }
                     Status.ERROR -> {
@@ -82,6 +105,27 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
             })
         } else {
+            viewModel.checkFavoriteTvShowsState().observe(this, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        fab.isEnabled = false
+                    }
+                    Status.SUCCESS -> {
+                        fab.isEnabled = true
+
+                        if (it.data?.size!! == 0) {
+                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                        } else {
+                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                        }
+                    }
+                    Status.ERROR -> {
+                        fab.isEnabled = false
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
             viewModel.getTvShow().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {

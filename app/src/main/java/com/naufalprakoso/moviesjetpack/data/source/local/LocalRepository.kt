@@ -78,4 +78,12 @@ class LocalRepository(
     fun deleteFavoriteTvShow(tvShow: FavoriteTvShowEntity) {
         movieDao.deleteFavoriteTvShow(tvShow)
     }
+
+    fun checkFavoriteMovieState(movieId: String): LiveData<List<FavoriteMovieEntity>>{
+        return movieDao.checkFavoriteMovieState(movieId)
+    }
+
+    fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>{
+        return movieDao.checkFavoriteTvShowState(tvShowId)
+    }
 }

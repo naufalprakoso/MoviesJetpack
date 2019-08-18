@@ -30,6 +30,12 @@ class DetailViewModel(
     fun getFavoriteTvShow(): LiveData<Resource<FavoriteTvShowEntity>> =
         Transformations.switchMap(login) { movieRepository?.getFavoriteTvShow(movieId) }
 
+    fun checkFavoriteMoviesState(): LiveData<Resource<List<FavoriteMovieEntity>>> =
+        Transformations.switchMap(login) { movieId?.let { it1 -> movieRepository?.checkFavoriteMovieState(it1) } }
+
+    fun checkFavoriteTvShowsState(): LiveData<Resource<List<FavoriteTvShowEntity>>> =
+        Transformations.switchMap(login) { movieId?.let { it1 -> movieRepository?.checkFavoriteTvShowState(it1) } }
+
     fun setFavoriteMovie(movieEntity: FavoriteMovieEntity?) {
         movieRepository?.setFavoriteMovie(movieEntity)
     }

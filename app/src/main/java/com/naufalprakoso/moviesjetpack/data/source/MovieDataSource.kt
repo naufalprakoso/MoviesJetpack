@@ -25,4 +25,7 @@ interface MovieDataSource {
 
     fun unsetFavoriteMovie(movie: FavoriteMovieEntity?)
     fun unsetFavoriteTvShow(tvShow: FavoriteTvShowEntity?)
+
+    fun checkFavoriteMovieState(movieId: String): LiveData<Resource<List<FavoriteMovieEntity>>>
+    fun checkFavoriteTvShowState(tvShowId: String): LiveData<Resource<List<FavoriteTvShowEntity>>>
 }

@@ -18,6 +18,7 @@ class MovieRepository(
     private val remoteRepository: RemoteRepository? = null,
     private val appExecutors: AppExecutors? = null
 ) : MovieDataSource {
+
     companion object {
         @Volatile
         private var INSTANCE: MovieRepository? = null
@@ -57,7 +58,6 @@ class MovieRepository(
                 val movieEntities = ArrayList<MovieEntity>()
 
                 for (movieResponse in data) {
-                    println("LogMovieRepo: ${movieResponse.title}")
                     movieEntities.add(
                         MovieEntity(
                             movieResponse.id.toString(),
@@ -221,5 +221,33 @@ class MovieRepository(
         appExecutors?.diskIO?.execute {
             tvShow?.let { localRepository?.deleteFavoriteTvShow(it) }
         }
+    }
+
+    override fun checkFavoriteMovieState(movieId: String): LiveData<Resource<List<FavoriteMovieEntity>>> {
+        return object : NetworkBoundResource<List<FavoriteMovieEntity>, List<FavoriteMovieEntity>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<FavoriteMovieEntity>> {
+                return localRepository?.checkFavoriteMovieState(movieId)!!
+            }
+
+            override fun shouldFetch(data: List<FavoriteMovieEntity>): Boolean = false
+
+            public override fun createCall(): LiveData<ApiResponse<List<FavoriteMovieEntity>>>? = null
+
+            override fun saveCallResult(data: List<FavoriteMovieEntity>) {}
+        }.asLiveData()
+    }
+
+    override fun checkFavoriteTvShowState(tvShowId: String): LiveData<Resource<List<FavoriteTvShowEntity>>> {
+        return object : NetworkBoundResource<List<FavoriteTvShowEntity>, List<FavoriteTvShowEntity>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<FavoriteTvShowEntity>> {
+                return localRepository?.checkFavoriteTvShowState(tvShowId)!!
+            }
+
+            override fun shouldFetch(data: List<FavoriteTvShowEntity>): Boolean = false
+
+            public override fun createCall(): LiveData<ApiResponse<List<FavoriteTvShowEntity>>>? = null
+
+            override fun saveCallResult(data: List<FavoriteTvShowEntity>) {}
+        }.asLiveData()
     }
 }
