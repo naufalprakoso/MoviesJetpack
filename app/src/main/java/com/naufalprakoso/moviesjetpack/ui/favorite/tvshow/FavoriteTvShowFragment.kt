@@ -67,7 +67,7 @@ class FavoriteTvShowFragment : Fragment() {
                             adapter = FavoriteTvShowAdapter(it.data) {
                                 context?.startActivity<FavoriteDetailActivity>(
                                     Const.DETAIL_MOVIE to it.id,
-                                    Const.MOVIE_TYPE to "movie"
+                                    Const.MOVIE_TYPE to "tv_show"
                                 )
                             }
                             adapter.notifyDataSetChanged()

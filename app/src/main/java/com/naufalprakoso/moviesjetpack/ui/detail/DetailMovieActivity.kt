@@ -39,33 +39,6 @@ class DetailMovieActivity : AppCompatActivity() {
         viewModel.setUsername("Naufal Prakoso")
 
         if (movieType == "movie") {
-            viewModel.checkFavoriteMoviesState().observe(this, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        fab.isEnabled = false
-                    }
-                    Status.SUCCESS -> {
-                        fab.isEnabled = true
-
-                        if (it.data?.size!! > 0) {
-                            fab.setImageResource(R.drawable.ic_bookmarked_white)
-
-                            fab.setOnClickListener { view ->
-                                viewModel.unsetFavoriteMovie(it.data[0])
-                                Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show()
-
-                                fab.setImageResource(R.drawable.ic_bookmark_white)
-                            }
-                        }
-                    }
-                    Status.ERROR -> {
-                        fab.isEnabled = false
-                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-
             viewModel.getMovie().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -85,24 +58,51 @@ class DetailMovieActivity : AppCompatActivity() {
 
                         tv_year_duration.text = "(${movie?.year}) - ${movie?.duration}"
 
-                        fab.setOnClickListener { view ->
-                            val movieTvShow = FavoriteMovieEntity(
-                                movie?.id.toString(),
-                                movie?.title,
-                                movie?.overview,
-                                movie?.rating,
-                                movie?.genre,
-                                movie?.image,
-                                movie?.year,
-                                movie?.duration
-                            )
+                        viewModel.checkFavoriteMoviesState().observe(this, Observer { checkData ->
+                            when (checkData.status) {
+                                Status.LOADING -> {
+                                    fab.isEnabled = false
+                                }
+                                Status.SUCCESS -> {
+                                    fab.isEnabled = true
 
-                            viewModel.setFavoriteMovie(movieTvShow)
-                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show()
+                                    if (checkData.data?.size!! > 0) {
+                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
 
-                            fab.setImageResource(R.drawable.ic_bookmarked_white)
-                        }
+                                        fab.setOnClickListener { view ->
+                                            viewModel.unsetFavoriteMovie(checkData.data[0])
+                                            Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null).show()
+
+                                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                                        }
+                                    } else {
+                                        fab.setOnClickListener { view ->
+                                            val movieTvShow = FavoriteMovieEntity(
+                                                movie?.id.toString(),
+                                                movie?.title,
+                                                movie?.overview,
+                                                movie?.rating,
+                                                movie?.genre,
+                                                movie?.image,
+                                                movie?.year,
+                                                movie?.duration
+                                            )
+
+                                            viewModel.setFavoriteMovie(movieTvShow)
+                                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null).show()
+
+                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        }
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    fab.isEnabled = false
+                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        })
                     }
                     Status.ERROR -> {
                         progress_bar.visibility = View.GONE
@@ -111,33 +111,6 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
             })
         } else {
-            viewModel.checkFavoriteTvShowsState().observe(this, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        fab.isEnabled = false
-                    }
-                    Status.SUCCESS -> {
-                        fab.isEnabled = true
-
-                        if (it.data?.size!! > 0) {
-                            fab.setImageResource(R.drawable.ic_bookmarked_white)
-
-                            fab.setOnClickListener { view ->
-                                viewModel.unsetFavoriteTvShow(it.data[0])
-                                Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show()
-
-                                fab.setImageResource(R.drawable.ic_bookmark_white)
-                            }
-                        }
-                    }
-                    Status.ERROR -> {
-                        fab.isEnabled = false
-                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-
             viewModel.getTvShow().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -157,24 +130,51 @@ class DetailMovieActivity : AppCompatActivity() {
 
                         tv_year_duration.text = "(${tvShow?.year}) - ${tvShow?.episode} episode(s)"
 
-                        fab.setOnClickListener { view ->
-                            val movieTvShow = FavoriteTvShowEntity(
-                                tvShow?.id.toString(),
-                                tvShow?.title,
-                                tvShow?.overview,
-                                tvShow?.rating,
-                                tvShow?.genre,
-                                tvShow?.image,
-                                tvShow?.year,
-                                tvShow?.episode
-                            )
+                        viewModel.checkFavoriteTvShowsState().observe(this, Observer { checkData ->
+                            when (checkData.status) {
+                                Status.LOADING -> {
+                                    fab.isEnabled = false
+                                }
+                                Status.SUCCESS -> {
+                                    fab.isEnabled = true
 
-                            viewModel.setFavoriteTvShow(movieTvShow)
-                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show()
+                                    if (checkData.data?.size!! > 0) {
+                                        fab.setImageResource(R.drawable.ic_bookmarked_white)
 
-                            fab.setImageResource(R.drawable.ic_bookmarked_white)
-                        }
+                                        fab.setOnClickListener { view ->
+                                            viewModel.unsetFavoriteTvShow(checkData.data[0])
+                                            Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null).show()
+
+                                            fab.setImageResource(R.drawable.ic_bookmark_white)
+                                        }
+                                    } else {
+                                        fab.setOnClickListener { view ->
+                                            val movieTvShow = FavoriteTvShowEntity(
+                                                tvShow?.id.toString(),
+                                                tvShow?.title,
+                                                tvShow?.overview,
+                                                tvShow?.rating,
+                                                tvShow?.genre,
+                                                tvShow?.image,
+                                                tvShow?.year,
+                                                tvShow?.episode
+                                            )
+
+                                            viewModel.setFavoriteTvShow(movieTvShow)
+                                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null).show()
+
+                                            fab.setImageResource(R.drawable.ic_bookmarked_white)
+                                        }
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    fab.isEnabled = false
+                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        })
                     }
                     Status.ERROR -> {
                         progress_bar.visibility = View.GONE
@@ -195,5 +195,4 @@ class DetailMovieActivity : AppCompatActivity() {
         val factory = viewModelFactory.getInstanceDetail(activity.application)
         return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
     }
-
 }
