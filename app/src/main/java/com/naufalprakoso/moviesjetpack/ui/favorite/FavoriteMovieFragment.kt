@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.ui.detail.DetailMovieActivity
-import com.naufalprakoso.moviesjetpack.ui.movie.MovieAdapter
+import com.naufalprakoso.moviesjetpack.ui.favorite.movie.FavoriteMovieAdapter
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieFragment
 import com.naufalprakoso.moviesjetpack.ui.movie.MovieViewModel
 import com.naufalprakoso.moviesjetpack.utils.Const
@@ -23,7 +23,7 @@ import org.jetbrains.anko.startActivity
 
 class FavoriteMovieFragment : Fragment() {
 
-    private lateinit var adapter: MovieAdapter
+    private lateinit var adapter: FavoriteMovieAdapter
     private var viewModel: MovieViewModel? = null
 
     companion object {
@@ -52,14 +52,14 @@ class FavoriteMovieFragment : Fragment() {
             viewModel?.getFavoriteMovies()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getFavoriteMovies()?.observe(this, Observer { it ->
-                when(it){
+                when(it.status){
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
                         progress_bar.visibility = View.GONE
 
-                        adapter = MovieAdapter(it.data!!) {
+                        adapter = FavoriteMovieAdapter(it.data!!) {
                             context?.startActivity<DetailMovieActivity>(
                                 Const.DETAIL_MOVIE to it.id,
                                 Const.MOVIE_TYPE to "movie"

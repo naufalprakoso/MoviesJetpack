@@ -49,7 +49,7 @@ class MovieFragment : Fragment() {
             viewModel?.getMovies()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getMovies()?.observe(this, Observer { it ->
-                when(it){
+                when(it.status){
                     Status.LOADING -> {
                         println("LogFragment: Status 1")
                         progress_bar.visibility = View.VISIBLE

@@ -11,14 +11,14 @@ interface MovieDataSource {
     fun allMovies(): LiveData<Resource<List<MovieEntity>>>
     fun allTvShows(): LiveData<Resource<List<TvShowEntity>>>
 
-    fun allFavoriteMovies(): LiveData<Resource<List<MovieEntity>>>
-    fun allFavoriteTvShows(): LiveData<Resource<List<TvShowEntity>>>
+    fun allFavoriteMovies(): LiveData<Resource<List<FavoriteMovieEntity>>>
+    fun allFavoriteTvShows(): LiveData<Resource<List<FavoriteTvShowEntity>>>
 
     fun getMovie(movieId: String?): LiveData<Resource<MovieEntity>>?
     fun getTvShow(tvShowId: String?): LiveData<Resource<TvShowEntity>>?
 
-    fun getFavoriteMovie(movieId: String?): LiveData<Resource<MovieEntity>>?
-    fun getFavoriteTvShow(tvShowId: String?): LiveData<Resource<TvShowEntity>>?
+    fun getFavoriteMovie(movieId: String?): LiveData<Resource<FavoriteMovieEntity>>?
+    fun getFavoriteTvShow(tvShowId: String?): LiveData<Resource<FavoriteTvShowEntity>>?
 
     fun setFavoriteMovie(movie: FavoriteMovieEntity?)
     fun setFavoriteTvShow(tvShow: FavoriteTvShowEntity?)

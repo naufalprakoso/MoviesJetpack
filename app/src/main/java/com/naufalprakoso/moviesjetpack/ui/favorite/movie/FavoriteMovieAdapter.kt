@@ -1,4 +1,4 @@
-package com.naufalprakoso.moviesjetpack.ui.movie
+package com.naufalprakoso.moviesjetpack.ui.favorite.movie
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,17 +7,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
-import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
+import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 
-class MovieAdapter(
-    private val movies: List<MovieEntity>,
-    private val listener: (MovieEntity) -> Unit
-) : RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
+class FavoriteMovieAdapter(
+    private val movies: List<FavoriteMovieEntity>,
+    private val listener: (FavoriteMovieEntity) -> Unit
+) : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.items_movie, parent, false))
+        ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.items_movie,
+                parent,
+                false
+            )
+        )
 
     override fun getItemCount(): Int = movies.size
 
@@ -26,7 +32,7 @@ class MovieAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @SuppressLint("SetTextI18n")
-        fun bindItem(movie: MovieEntity, listener: (MovieEntity) -> Unit){
+        fun bindItem(movie: FavoriteMovieEntity, listener: (FavoriteMovieEntity) -> Unit){
             itemView.tv_title.text = movie.title
 
             if (movie.overview?.length!! > 100){

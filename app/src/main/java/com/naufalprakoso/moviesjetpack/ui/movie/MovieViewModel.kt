@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.naufalprakoso.moviesjetpack.data.source.MovieRepository
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import androidx.lifecycle.Transformations
+import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.vo.Resource
 
 
@@ -18,7 +19,7 @@ class MovieViewModel(
     fun getMovies(): LiveData<Resource<List<MovieEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allMovies() }
 
-    fun getFavoriteMovies(): LiveData<Resource<List<MovieEntity>>> =
+    fun getFavoriteMovies(): LiveData<Resource<List<FavoriteMovieEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allFavoriteMovies() }
 
     fun setUsername(username: String) {

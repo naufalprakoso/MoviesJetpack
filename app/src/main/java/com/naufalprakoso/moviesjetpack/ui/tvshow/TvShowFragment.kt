@@ -49,7 +49,7 @@ class TvShowFragment : Fragment() {
             viewModel?.getTvShows()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getTvShows()?.observe(this, Observer { it ->
-                when(it){
+                when(it.status){
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
                     }

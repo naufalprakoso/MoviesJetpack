@@ -12,6 +12,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".ui.favorite.detail.FavoriteDetailActivity"
+                android:label="@string/title_activity_favorite_detail"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".ui.detail.DetailMovieActivity"
                 android:label="@string/title_activity_detail_movie"
                 android:theme="@style/AppTheme.NoActionBar">

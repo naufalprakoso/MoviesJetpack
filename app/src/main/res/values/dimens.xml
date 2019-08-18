@@ -1,7 +1,7 @@
 <resources>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="dimen_8dp">8dp</dimen>
-    <dimen name="title_20">20sp</dimen>
+	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="dimen_8dp">8dp</dimen>
+	<dimen name="title_20">20sp</dimen>
 </resources>

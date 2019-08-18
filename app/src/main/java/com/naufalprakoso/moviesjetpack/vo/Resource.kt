@@ -4,7 +4,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 
 class Resource<T>(
-    private val status: Status, @param:Nullable @field:Nullable
+    val status: Status, @param:Nullable @field:Nullable
     val data: T?, @param:Nullable @field:Nullable
     val message: String?
 ) {

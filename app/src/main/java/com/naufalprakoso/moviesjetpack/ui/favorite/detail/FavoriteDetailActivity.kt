@@ -1,4 +1,4 @@
-package com.naufalprakoso.moviesjetpack.ui.detail
+package com.naufalprakoso.moviesjetpack.ui.favorite.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,23 +12,25 @@ import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
+import com.naufalprakoso.moviesjetpack.ui.detail.DetailViewModel
 import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 
-import kotlinx.android.synthetic.main.activity_detail_movie.*
-import kotlinx.android.synthetic.main.content_detail_movie.*
-import kotlinx.android.synthetic.main.content_detail_movie.progress_bar
+import kotlinx.android.synthetic.main.activity_favorite_detail.fab
+import kotlinx.android.synthetic.main.activity_favorite_detail.toolbar
+import kotlinx.android.synthetic.main.content_favorite_detail.*
 
-class DetailMovieActivity : AppCompatActivity() {
+class FavoriteDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DetailViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_movie)
+        setContentView(R.layout.activity_favorite_detail)
         setSupportActionBar(toolbar)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         progress_bar.visibility = View.VISIBLE
@@ -39,7 +41,7 @@ class DetailMovieActivity : AppCompatActivity() {
         viewModel.setUsername("Naufal Prakoso")
 
         if (movieType == "movie") {
-            viewModel.getMovie().observe(this, Observer {
+            viewModel.getFavoriteMovie().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
@@ -82,7 +84,7 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
             })
         } else {
-            viewModel.getTvShow().observe(this, Observer {
+            viewModel.getFavoriteTvShow().observe(this, Observer {
                 when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
@@ -137,5 +139,4 @@ class DetailMovieActivity : AppCompatActivity() {
         val factory = viewModelFactory.getInstanceDetail(activity.application)
         return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
     }
-
 }

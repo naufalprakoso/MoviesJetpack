@@ -47,20 +47,20 @@ class LocalRepository(
     }
 
 //    Favorite
-    fun getAllFavoriteMovies(): LiveData<List<MovieEntity>>{
-        return movieDao.getMovies()
+    fun getAllFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>{
+        return movieDao.getFavoriteMovies()
     }
 
-    fun getAllFavoriteTvShows(): LiveData<List<TvShowEntity>>{
-        return movieDao.getTvShows()
+    fun getAllFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>{
+        return movieDao.getFavoriteTvShows()
     }
 
-    fun getFavoriteMovie(movieId: String): LiveData<MovieEntity>{
-        return movieDao.getMovie(movieId)
+    fun getFavoriteMovie(movieId: String): LiveData<FavoriteMovieEntity>{
+        return movieDao.getFavoriteMovie(movieId)
     }
 
-    fun getFavoriteTvShow(tvShowId: String): LiveData<TvShowEntity>{
-        return movieDao.getTvShow(tvShowId)
+    fun getFavoriteTvShow(tvShowId: String): LiveData<FavoriteTvShowEntity>{
+        return movieDao.getFavoriteTvShow(tvShowId)
     }
 
     fun insertFavoriteMovie(movie: FavoriteMovieEntity) {

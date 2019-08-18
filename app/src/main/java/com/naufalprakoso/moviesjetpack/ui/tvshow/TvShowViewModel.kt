@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.naufalprakoso.moviesjetpack.data.source.MovieRepository
+import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 import com.naufalprakoso.moviesjetpack.vo.Resource
 
@@ -17,7 +18,7 @@ class TvShowViewModel(
     fun getTvShows(): LiveData<Resource<List<TvShowEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allTvShows() }
 
-    fun getFavoriteTvShows(): LiveData<Resource<List<TvShowEntity>>> =
+    fun getFavoriteTvShows(): LiveData<Resource<List<FavoriteTvShowEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allFavoriteTvShows() }
 
     fun setUsername(username: String) {

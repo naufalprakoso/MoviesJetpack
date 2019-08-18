@@ -60,10 +60,14 @@ class MovieRepository(
                     println("LogMovieRepo: ${movieResponse.title}")
                     movieEntities.add(
                         MovieEntity(
-                            id = movieResponse.id.toString(),
-                            title = movieResponse.title,
-                            overview = movieResponse.overview,
-                            image = movieResponse.image
+                            movieResponse.id.toString(),
+                            movieResponse.title,
+                            movieResponse.overview,
+                            movieResponse.rating,
+                            movieResponse.genre,
+                            movieResponse.image,
+                            movieResponse.year,
+                            movieResponse.duration
                         )
                     )
                 }
@@ -93,10 +97,14 @@ class MovieRepository(
                 for (tvShowResponse in data) {
                     tvShowEntities.add(
                         TvShowEntity(
-                            id = tvShowResponse.id.toString(),
-                            title = tvShowResponse.title,
-                            overview = tvShowResponse.overview,
-                            image = tvShowResponse.image
+                            tvShowResponse.id.toString(),
+                            tvShowResponse.title,
+                            tvShowResponse.overview,
+                            tvShowResponse.rating,
+                            tvShowResponse.genre,
+                            tvShowResponse.image,
+                            tvShowResponse.year,
+                            tvShowResponse.episode
                         )
                     )
                 }
@@ -114,13 +122,9 @@ class MovieRepository(
 
             override fun shouldFetch(data: MovieEntity): Boolean = false
 
-            override fun createCall(): LiveData<ApiResponse<MovieResponse>> {
-                return remoteRepository?.getMovieAsLiveData(movieId)!!
-            }
+            override fun createCall(): LiveData<ApiResponse<MovieResponse>>? = null
 
-            override fun saveCallResult(data: MovieResponse) {
-                movieId?.let { localRepository?.getMovie(it) }
-            }
+            override fun saveCallResult(data: MovieResponse) {}
         }.asLiveData()
     }
 
@@ -132,70 +136,66 @@ class MovieRepository(
 
             override fun shouldFetch(data: TvShowEntity): Boolean = false
 
-            override fun createCall(): LiveData<ApiResponse<TvShowResponse>> {
-                return remoteRepository?.getTvShowAsLiveData(tvShowId)!!
-            }
+            override fun createCall(): LiveData<ApiResponse<TvShowResponse>>? = null
 
-            override fun saveCallResult(data: TvShowResponse) {
-                tvShowId?.let { localRepository?.getTvShow(it) }
-            }
+            override fun saveCallResult(data: TvShowResponse) {}
         }.asLiveData()
     }
 
     //    Favorite
-    override fun allFavoriteMovies(): LiveData<Resource<List<MovieEntity>>> {
-        return object : NetworkBoundResource<List<MovieEntity>, List<MovieResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<MovieEntity>> {
+    override fun allFavoriteMovies(): LiveData<Resource<List<FavoriteMovieEntity>>> {
+        return object : NetworkBoundResource<List<FavoriteMovieEntity>, List<FavoriteMovieEntity>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<FavoriteMovieEntity>> {
                 return localRepository?.getAllFavoriteMovies()!!
             }
 
-            override fun shouldFetch(data: List<MovieEntity>): Boolean = false
+            override fun shouldFetch(data: List<FavoriteMovieEntity>): Boolean = false
 
-            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>>? = null
+            public override fun createCall(): LiveData<ApiResponse<List<FavoriteMovieEntity>>>? = null
 
-            override fun saveCallResult(data: List<MovieResponse>) {}
+            override fun saveCallResult(data: List<FavoriteMovieEntity>) {}
         }.asLiveData()
     }
 
-    override fun allFavoriteTvShows(): LiveData<Resource<List<TvShowEntity>>> {
-        return object : NetworkBoundResource<List<TvShowEntity>, List<TvShowResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<TvShowEntity>> {
+    override fun allFavoriteTvShows(): LiveData<Resource<List<FavoriteTvShowEntity>>> {
+        return object : NetworkBoundResource<List<FavoriteTvShowEntity>, List<FavoriteTvShowEntity>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<FavoriteTvShowEntity>> {
                 return localRepository?.getAllFavoriteTvShows()!!
             }
 
-            override fun shouldFetch(data: List<TvShowEntity>): Boolean = false
+            override fun shouldFetch(data: List<FavoriteTvShowEntity>): Boolean = false
 
-            public override fun createCall(): LiveData<ApiResponse<List<TvShowResponse>>>? = null
+            public override fun createCall(): LiveData<ApiResponse<List<FavoriteTvShowEntity>>>? = null
 
-            override fun saveCallResult(data: List<TvShowResponse>) {}
+            override fun saveCallResult(data: List<FavoriteTvShowEntity>) {}
         }.asLiveData()
     }
 
-    override fun getFavoriteMovie(movieId: String?): LiveData<Resource<MovieEntity>>? {
-        return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MovieEntity> {
+    override fun getFavoriteMovie(movieId: String?): LiveData<Resource<FavoriteMovieEntity>>? {
+        return object : NetworkBoundResource<FavoriteMovieEntity, FavoriteMovieEntity>(appExecutors) {
+            override fun loadFromDB(): LiveData<FavoriteMovieEntity> {
                 return movieId?.let { localRepository?.getFavoriteMovie(it) }!!
             }
 
-            override fun shouldFetch(data: MovieEntity): Boolean = false
+            override fun shouldFetch(data: FavoriteMovieEntity): Boolean = false
 
-            override fun createCall(): LiveData<ApiResponse<MovieResponse>>? = null
+            override fun createCall(): LiveData<ApiResponse<FavoriteMovieEntity>>? = null
 
-            override fun saveCallResult(data: MovieResponse) {}
+            override fun saveCallResult(data: FavoriteMovieEntity) {}
         }.asLiveData()
     }
 
-    override fun getFavoriteTvShow(tvShowId: String?): LiveData<Resource<TvShowEntity>>? {
-        return object : NetworkBoundResource<TvShowEntity, TvShowResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TvShowEntity> {
+    override fun getFavoriteTvShow(tvShowId: String?): LiveData<Resource<FavoriteTvShowEntity>>? {
+        return object : NetworkBoundResource<FavoriteTvShowEntity, FavoriteTvShowEntity>(appExecutors) {
+            override fun loadFromDB(): LiveData<FavoriteTvShowEntity> {
                 return tvShowId?.let { localRepository?.getFavoriteTvShow(it) }!!
             }
 
-            override fun shouldFetch(data: TvShowEntity): Boolean = false
+            override fun shouldFetch(data: FavoriteTvShowEntity): Boolean = false
 
-            override fun createCall(): LiveData<ApiResponse<TvShowResponse>>? = null
+            override fun createCall(): LiveData<ApiResponse<FavoriteTvShowEntity>>? = null
 
-            override fun saveCallResult(data: TvShowResponse) {}
+            override fun saveCallResult(data: FavoriteTvShowEntity) {}
         }.asLiveData()
     }
 
