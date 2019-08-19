@@ -16,7 +16,7 @@ import org.jetbrains.anko.sdk25.listeners.onClick
 class FavoriteTvShowPagedAdapter(
     private val movies: List<FavoriteTvShowEntity>,
     private val listener: (FavoriteTvShowEntity) -> Unit
-) : PagedListAdapter<FavoriteTvShowEntity, FavoriteTvShowPagedAdapter.ViewHolder>(FavoriteTvShowPagedAdapter.TvShowsDiffCallback) {
+) : PagedListAdapter<FavoriteTvShowEntity, FavoriteTvShowPagedAdapter.ViewHolder>(TvShowsDiffCallback) {
 
     companion object {
         val TvShowsDiffCallback = object : DiffUtil.ItemCallback<FavoriteTvShowEntity>() {

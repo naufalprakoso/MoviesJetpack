@@ -12,7 +12,8 @@ class PagedListUtil {
             val pagedList = mock(PagedList::class.java) as PagedList<T>
             val answer = Answer{ invocation->
                 val index = invocation.arguments[0] as Int
-                list.get(index) }
+                list[index]
+            }
 
             `when`(pagedList[anyInt()]).thenAnswer(answer)
             `when`(pagedList.size).thenReturn(list.size)

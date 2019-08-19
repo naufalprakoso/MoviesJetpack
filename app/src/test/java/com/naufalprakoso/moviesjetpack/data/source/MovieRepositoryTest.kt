@@ -22,13 +22,6 @@ import org.junit.Assert.assertNotNull
 
 class MovieRepositoryTest {
 
-    private fun <T> anyObject(): T {
-        any<T>()
-        return uninitialized()
-    }
-
-    private fun <T> uninitialized(): T = null as T
-
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -55,7 +48,7 @@ class MovieRepositoryTest {
 
         `when`(local.getAllMoviesPaged()).thenReturn(dataSourceFactory)
         movieRepository.getMoviesPaged()
-        val result = Resource.success(PagedListUtil.mockPagedList(movieEntities));
+        val result = Resource.success(PagedListUtil.mockPagedList(movieEntities))
 
         verify(local).getAllMoviesPaged()
         assertNotNull(result.data)
@@ -69,7 +62,7 @@ class MovieRepositoryTest {
 
         `when`(local.getAllTvShowsPaged()).thenReturn(dataSourceFactory)
         movieRepository.getTvShowsPaged()
-        val result = Resource.success(PagedListUtil.mockPagedList(tvShowEntities));
+        val result = Resource.success(PagedListUtil.mockPagedList(tvShowEntities))
 
         verify(local).getAllTvShowsPaged()
         assertNotNull(result.data)

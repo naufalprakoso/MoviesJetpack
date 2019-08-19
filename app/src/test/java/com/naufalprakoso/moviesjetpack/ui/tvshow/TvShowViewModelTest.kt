@@ -12,7 +12,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
-import com.naufalprakoso.moviesjetpack.ui.utils.FakeDataDummy
 import com.naufalprakoso.moviesjetpack.vo.Resource
 import org.junit.Rule
 

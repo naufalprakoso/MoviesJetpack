@@ -21,27 +21,6 @@ class FakeMovieRepository(
     private val appExecutors: AppExecutors? = null
 ) : MovieDataSource {
 
-    companion object {
-        @Volatile
-        private var INSTANCE: FakeMovieRepository? = null
-
-        fun getInstance(
-            localRepository: LocalRepository,
-            remoteRepository: RemoteRepository,
-            appExecutors: AppExecutors?
-        ): FakeMovieRepository? {
-            if (INSTANCE == null) {
-                synchronized(MovieRepository::class.java){
-                    if (INSTANCE == null) {
-                        INSTANCE = FakeMovieRepository(localRepository, remoteRepository, appExecutors)
-                    }
-                }
-            }
-
-            return INSTANCE
-        }
-    }
-
     override fun allMovies(): LiveData<Resource<List<MovieEntity>>> {
         return object : NetworkBoundResource<List<MovieEntity>, List<MovieResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<MovieEntity>> {

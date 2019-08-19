@@ -16,7 +16,7 @@ import org.jetbrains.anko.sdk25.listeners.onClick
 class TvShowPagedAdapter(
     private val tvShows: List<TvShowEntity>,
     private val listener: (TvShowEntity) -> Unit
-) : PagedListAdapter<TvShowEntity, TvShowPagedAdapter.ViewHolder>(TvShowPagedAdapter.TvShowsDiffCallback) {
+) : PagedListAdapter<TvShowEntity, TvShowPagedAdapter.ViewHolder>(TvShowsDiffCallback) {
 
     companion object {
         val TvShowsDiffCallback = object : DiffUtil.ItemCallback<TvShowEntity>() {

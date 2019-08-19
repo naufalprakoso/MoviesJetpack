@@ -1,7 +1,6 @@
 package com.naufalprakoso.moviesjetpack.ui.movie
 
 import com.naufalprakoso.moviesjetpack.data.source.MovieRepository
-import com.naufalprakoso.moviesjetpack.ui.utils.FakeDataDummy
 import org.junit.After
 import org.junit.Test
 

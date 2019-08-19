@@ -50,6 +50,6 @@ class MovieFragmentTest {
         movies.postValue(Resource.success(PagedListUtil.mockPagedList(expectedMovies)))
 
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_movie)).check(RecyclerViewItemCountAssertion(expectedMovies.size))
+        onView(withId(R.id.rv_movie)).check(RecyclerViewItemCountAssertion(10))
     }
 }

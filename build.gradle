@@ -27,7 +27,7 @@ buildscript {
         glideVersion = '4.9.0'
         idleResourceVersion = '3.2.0'
         anko_version = '0.10.8'
-        daggerVersion = '2.16'
+        daggerVersion = '2.23.1'
     }
     repositories {
         google()
