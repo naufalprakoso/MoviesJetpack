@@ -10,10 +10,15 @@ import org.mockito.Mockito.mock
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
+import com.naufalprakoso.moviesjetpack.ui.utils.FakeDataDummy
+import com.naufalprakoso.moviesjetpack.vo.Resource
 import org.junit.Rule
 
 class TvShowViewModelTest {
+
+    private val username = "Naufal Prakoso"
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -33,16 +38,20 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dummyCourse = MutableLiveData<List<TvShowEntity>>().apply {
-            setValue(com.naufalprakoso.moviesjetpack.ui.utils.FakeDataDummy.generateTvShows())
+        val pagedList = mock(PagedList::class.java) as PagedList<TvShowEntity>
+
+        val dummyMovie = MutableLiveData<Resource<PagedList<TvShowEntity>>>().apply {
+            setValue(Resource.success(pagedList))
         }
 
-        Mockito.`when`(movieRepository.allTvShows()).thenReturn(dummyCourse)
+        Mockito.`when`(movieRepository.getTvShowsPaged()).thenReturn(dummyMovie)
 
-        val observer = mock(Observer::class.java) as Observer<List<TvShowEntity>>
+        val observer =
+            mock(Observer::class.java) as Observer<Resource<PagedList<TvShowEntity>>>
 
-        viewModel.getTvShows()?.observeForever(observer)
+        viewModel.setUsername(username)
+        viewModel.getTvShowsPaged()?.observeForever(observer)
 
-        Mockito.verify(movieRepository).allTvShows()
+        Mockito.verify(observer).onChanged(Resource.success(pagedList))
     }
 }

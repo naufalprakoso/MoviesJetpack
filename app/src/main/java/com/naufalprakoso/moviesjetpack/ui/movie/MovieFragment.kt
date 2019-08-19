@@ -17,13 +17,19 @@ import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.jetbrains.anko.startActivity
+import javax.inject.Inject
+import androidx.lifecycle.ViewModelProvider
 
 class MovieFragment : Fragment() {
 
     private lateinit var adapter: MoviePagedAdapter
     private var viewModel: MovieViewModel? = null
 
+    @Inject
+    var factory: ViewModelProvider.Factory? = null
+
     companion object {
+
         fun newInstance(): Fragment {
             return MovieFragment()
         }
@@ -49,7 +55,7 @@ class MovieFragment : Fragment() {
             viewModel?.getMoviesPaged()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getMoviesPaged()?.observe(this, Observer { it ->
-                when(it.status){
+                when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
                     }
@@ -76,7 +82,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun obtainViewModel(activity: FragmentActivity?): MovieViewModel? {
-        val factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
+        factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
         return activity?.let { ViewModelProviders.of(it, factory).get(MovieViewModel::class.java) }
     }
 }

@@ -17,11 +17,16 @@ import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 import org.jetbrains.anko.startActivity
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 
 class TvShowFragment : Fragment() {
 
     private lateinit var adapter: TvShowPagedAdapter
     private var viewModel: TvShowViewModel? = null
+
+    @Inject
+    var factory: ViewModelProvider.Factory? = null
 
     companion object {
         fun newInstance(): Fragment {
@@ -76,7 +81,7 @@ class TvShowFragment : Fragment() {
     }
 
     private fun obtainViewModel(activity: FragmentActivity?): TvShowViewModel? {
-        val factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
+        factory = activity?.application?.let { ViewModelFactory.getInstance(it) }
         return activity?.let { ViewModelProviders.of(it, factory).get(TvShowViewModel::class.java) }
     }
 }

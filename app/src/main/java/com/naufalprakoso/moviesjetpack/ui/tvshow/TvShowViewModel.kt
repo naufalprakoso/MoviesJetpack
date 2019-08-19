@@ -10,7 +10,7 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEn
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 import com.naufalprakoso.moviesjetpack.vo.Resource
 
-class TvShowViewModel(
+open class TvShowViewModel(
     private val movieRepository: MovieRepository? = null
 ) : ViewModel() {
 
@@ -24,7 +24,7 @@ class TvShowViewModel(
     fun getFavoriteTvShows(): LiveData<Resource<List<FavoriteTvShowEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allFavoriteTvShows() }
 
-    fun getTvShowsPaged(): LiveData<Resource<PagedList<TvShowEntity>>>? {
+    open fun getTvShowsPaged(): LiveData<Resource<PagedList<TvShowEntity>>>? {
         return movieRepository?.getTvShowsPaged()
     }
 
@@ -32,7 +32,7 @@ class TvShowViewModel(
         return movieRepository?.getFavoriteTvShowsPaged()
     }
 
-    fun setUsername(username: String) {
+    open fun setUsername(username: String) {
         login.value = username
     }
 }

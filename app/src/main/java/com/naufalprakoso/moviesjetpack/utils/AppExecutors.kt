@@ -7,7 +7,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 @VisibleForTesting
-class AppExecutors(
+open class AppExecutors(
     val diskIO: Executor,
     private val networkIO: Executor,
     private val mainThread: Executor

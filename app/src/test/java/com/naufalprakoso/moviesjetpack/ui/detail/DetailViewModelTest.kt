@@ -13,10 +13,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
+import com.naufalprakoso.moviesjetpack.vo.Resource
 
 class DetailViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private val username = "Username"
 
     private lateinit var viewModelMovie: DetailViewModel
     private lateinit var viewModelTvShow: DetailViewModel
@@ -39,29 +42,37 @@ class DetailViewModelTest {
 
     @Test
     fun getMovieDetail(){
-        val movieEntities = MutableLiveData<MovieEntity>().also {
-            it.setValue(dummyMovie)
+        val resource: Resource<MovieEntity> = Resource.success(dummyMovie)
+
+        val movieEntities = MutableLiveData<Resource<MovieEntity>>().also {
+            it.setValue(resource)
         }
 
         `when`(movieRepository.getMovie(movieId)).thenReturn(movieEntities)
 
-        val observer = mock(Observer::class.java) as Observer<MovieEntity>
-        viewModelMovie.getMovie()?.observeForever(observer)
+        val observer = mock(Observer::class.java) as Observer<Resource<MovieEntity>>
 
-        verify(movieRepository).getMovie(movieId)
+        viewModelMovie.setUsername(username)
+        viewModelMovie.getMovie().observeForever(observer)
+
+        verify(observer).onChanged(resource)
     }
 
     @Test
     fun getTvShowDetail(){
-        val tvShowEntities = MutableLiveData<TvShowEntity>().also {
-            it.setValue(dummyTvShow)
+        val resource: Resource<TvShowEntity> = Resource.success(dummyTvShow)
+
+        val movieEntities = MutableLiveData<Resource<TvShowEntity>>().also {
+            it.setValue(resource)
         }
 
-        `when`(movieRepository.getTvShow(tvShowId)).thenReturn(tvShowEntities)
+        `when`(movieRepository.getTvShow(tvShowId)).thenReturn(movieEntities)
 
-        val observer = mock(Observer::class.java) as Observer<TvShowEntity>
-        viewModelTvShow.getTvShow()?.observeForever(observer)
+        val observer = mock(Observer::class.java) as Observer<Resource<TvShowEntity>>
 
-        verify(movieRepository).getTvShow(tvShowId)
+        viewModelTvShow.setUsername(username)
+        viewModelTvShow.getTvShow().observeForever(observer)
+
+        verify(observer).onChanged(resource)
     }
 }

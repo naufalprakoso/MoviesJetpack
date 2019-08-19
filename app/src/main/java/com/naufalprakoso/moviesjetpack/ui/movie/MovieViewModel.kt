@@ -10,10 +10,7 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEnt
 import com.naufalprakoso.moviesjetpack.vo.Resource
 import androidx.paging.PagedList
 
-
-
-
-class MovieViewModel(
+open class MovieViewModel(
     private val movieRepository: MovieRepository? = null
 ) : ViewModel() {
 
@@ -27,7 +24,7 @@ class MovieViewModel(
     fun getFavoriteMovies(): LiveData<Resource<List<FavoriteMovieEntity>>> =
         Transformations.switchMap(login) { movieRepository?.allFavoriteMovies() }
 
-    fun getMoviesPaged(): LiveData<Resource<PagedList<MovieEntity>>>? {
+    open fun getMoviesPaged(): LiveData<Resource<PagedList<MovieEntity>>>? {
         return movieRepository?.getMoviesPaged()
     }
 
@@ -35,7 +32,7 @@ class MovieViewModel(
         return movieRepository?.getFavoriteMoviesPaged()
     }
 
-    fun setUsername(username: String) {
+    open fun setUsername(username: String) {
         login.value = username
     }
 }
