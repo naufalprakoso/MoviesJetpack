@@ -1,5 +1,5 @@
 # Movies Jetpack
-Dicoding Jetpack Final Submission using Kotlin
+MovieDB app using MVVM Pattern, LiveData, Room on Android
 
 ## Components
 - MVVM
