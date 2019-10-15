@@ -6,7 +6,6 @@
 	<string name="title_activity_detail_movie">Detail Movie</string>
 	<string name="overview_sample">lorem\tipsum dolor sit amet</string>
 	<string name="title_sample">Title</string>
-	<string name="year_duration_sample">(2019) - 1h 47m</string>
 	<string name="genre_sample">Action</string>
 	<string name="overview">Overview</string>
 	<string name="image_poster_description">This image for poster movie</string>
@@ -16,4 +15,6 @@
 	<string name="empty">There is no data here!</string>
 	<string name="favorite_tv_show">Favorite Tv Show</string>
 	<string name="favorite_movie">Favorite Movie</string>
+	<string name="sample_average">8.7</string>
+	<string name="sample_vote_count">(100)</string>
 </resources>

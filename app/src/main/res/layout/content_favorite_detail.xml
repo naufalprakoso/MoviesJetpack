@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior"
-		tools:showIn="@layout/activity_favorite_detail"
-		tools:context="com.naufalprakoso.moviesjetpack.ui.favorite.detail.FavoriteDetailActivity">
+		tools:context="com.naufalprakoso.moviesjetpack.ui.favorite.detail.FavoriteDetailActivity"
+		tools:showIn="@layout/activity_favorite_detail">
 
 	<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:orientation="vertical">
 
 		<ImageView
@@ -20,49 +19,72 @@
 				android:layout_height="300dp"
 				android:layout_gravity="center"
 				android:layout_marginTop="@dimen/activity_vertical_margin"
-				android:contentDescription="@string/image_poster_description"/>
+				android:contentDescription="@string/image_poster_description" />
 
 		<androidx.cardview.widget.CardView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="@dimen/activity_vertical_margin">
+				android:layout_margin="@dimen/activity_vertical_margin"
+				app:cardCornerRadius="8dp"
+				app:cardElevation="16dp">
 
-			<LinearLayout
-					android:orientation="vertical"
+			<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:orientation="vertical"
 					android:padding="@dimen/activity_vertical_margin">
 
 				<TextView
 						android:id="@+id/tv_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:text="@string/title_sample"
 						android:textSize="@dimen/title_20"
-						android:textStyle="bold"
-						android:text="@string/title_sample"/>
+						android:textStyle="bold" />
 
-				<TextView
-						android:id="@+id/tv_year_duration"
+				<ImageView
+						android:id="@+id/img_star"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@string/year_duration_sample"/>
+						android:layout_below="@+id/tv_title"
+						android:src="@drawable/ic_star_white"
+						android:tint="@color/colorStar" />
 
 				<TextView
+						android:id="@+id/tv_vote_average"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:textStyle="bold"
+						android:layout_below="@+id/tv_title"
+						android:layout_toEndOf="@+id/img_star"
+						android:text="@string/sample_average" />
+
+				<TextView
+						android:id="@+id/tv_vote_count"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/tv_title"
+						android:layout_toEndOf="@+id/tv_vote_average"
+						android:text="@string/sample_vote_count" />
+
+				<TextView
+						android:id="@+id/overview_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/tv_vote_count"
 						android:layout_marginTop="@dimen/activity_vertical_margin"
+						android:text="@string/overview"
 						android:textSize="@dimen/title_20"
-						android:text="@string/overview"/>
+						android:textStyle="bold" />
 
 				<TextView
 						android:id="@+id/tv_overview"
-						android:layout_marginTop="@dimen/dimen_8dp"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@string/overview_sample"/>
+						android:layout_below="@+id/overview_title"
+						android:layout_marginTop="@dimen/dimen_8dp"
+						android:text="@string/overview_sample" />
 
-			</LinearLayout>
+			</RelativeLayout>
 
 		</androidx.cardview.widget.CardView>
 
@@ -73,10 +95,10 @@
 			style="?android:attr/progressBarStyle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
 			android:layout_marginEnd="8dp"
-			android:layout_marginBottom="8dp"
-			android:layout_gravity="center"/>
+			android:layout_marginBottom="8dp" />
 
 </FrameLayout>

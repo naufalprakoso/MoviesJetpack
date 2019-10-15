@@ -57,7 +57,8 @@ class FavoriteDetailActivity : AppCompatActivity() {
                             .load("https://image.tmdb.org/t/p/w185/${movie?.poster_path}")
                             .into(img_poster)
 
-                        tv_year_duration.text = movie?.release_date
+                        tv_vote_average.text = movie?.vote_average.toString()
+                        tv_vote_count.text = "(${movie?.vote_count})"
 
                         viewModel.checkFavoriteMoviesState().observe(this, Observer { checkData ->
                             when (checkData.status) {
@@ -137,7 +138,8 @@ class FavoriteDetailActivity : AppCompatActivity() {
                             .load("https://image.tmdb.org/t/p/w185/${tvShow?.poster_path}")
                             .into(img_poster)
 
-                        tv_year_duration.text = tvShow?.release_date
+                        tv_vote_average.text = tvShow?.vote_average.toString()
+                        tv_vote_count.text = "(${tvShow?.vote_count})"
 
                         viewModel.checkFavoriteTvShowsState().observe(this, Observer { checkData ->
                             when (checkData.status) {
