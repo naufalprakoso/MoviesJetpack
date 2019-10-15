@@ -9,20 +9,21 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEnt
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
+import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.vo.Resource
 
 class DetailViewModel(
-    var movieId: String? = "",
+    var movieId: Int = 0,
     private val movieRepository: MovieRepository? = null
 ) : ViewModel() {
 
     private val login = MutableLiveData<String>()
 
     fun getMovie(): LiveData<Resource<MovieEntity>> =
-        Transformations.switchMap(login) { movieRepository?.getMovie(movieId) }
+        Transformations.switchMap(login) { movieRepository?.getMovie(movieId, Const.API) }
 
     fun getTvShow(): LiveData<Resource<TvShowEntity>> =
-        Transformations.switchMap(login) { movieRepository?.getTvShow(movieId) }
+        Transformations.switchMap(login) { movieRepository?.getTvShow(movieId, Const.API) }
 
     fun getFavoriteMovie(): LiveData<Resource<FavoriteMovieEntity>> =
         Transformations.switchMap(login) { movieRepository?.getFavoriteMovie(movieId) }
@@ -31,10 +32,10 @@ class DetailViewModel(
         Transformations.switchMap(login) { movieRepository?.getFavoriteTvShow(movieId) }
 
     fun checkFavoriteMoviesState(): LiveData<Resource<List<FavoriteMovieEntity>>> =
-        Transformations.switchMap(login) { movieId?.let { it1 -> movieRepository?.checkFavoriteMovieState(it1) } }
+        Transformations.switchMap(login) { movieRepository?.checkFavoriteMovieState(movieId) }
 
     fun checkFavoriteTvShowsState(): LiveData<Resource<List<FavoriteTvShowEntity>>> =
-        Transformations.switchMap(login) { movieId?.let { it1 -> movieRepository?.checkFavoriteTvShowState(it1) } }
+        Transformations.switchMap(login) { movieRepository?.checkFavoriteTvShowState(movieId) }
 
     fun setFavoriteMovie(movieEntity: FavoriteMovieEntity?) {
         movieRepository?.setFavoriteMovie(movieEntity)

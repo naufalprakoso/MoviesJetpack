@@ -1,5 +1,6 @@
 package com.naufalprakoso.moviesjetpack.ui.favorite.movie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_favorite_movie.*
-import org.jetbrains.anko.startActivity
 
 class FavoriteMovieFragment : Fragment() {
 
@@ -65,10 +65,12 @@ class FavoriteMovieFragment : Fragment() {
                             rv_movie.visibility = View.VISIBLE
 
                             adapter = FavoriteMoviePagedAdapter(it.data) {
-                                context?.startActivity<FavoriteDetailActivity>(
-                                    Const.DETAIL_MOVIE to it.id,
-                                    Const.MOVIE_TYPE to "movie"
-                                )
+                                val intent =
+                                    Intent(context, FavoriteDetailActivity::class.java).apply {
+                                        putExtra(Const.MOVIE_ID, it.id)
+                                        putExtra(Const.MOVIE_TYPE, "movie")
+                                    }
+                                context?.startActivity(intent)
                             }
                             adapter.submitList(it.data)
                             adapter.notifyDataSetChanged()

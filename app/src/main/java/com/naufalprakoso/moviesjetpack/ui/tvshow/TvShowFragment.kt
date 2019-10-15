@@ -1,5 +1,6 @@
 package com.naufalprakoso.moviesjetpack.ui.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +16,6 @@ import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv_show.*
-import org.jetbrains.anko.startActivity
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
@@ -54,7 +54,7 @@ class TvShowFragment : Fragment() {
             viewModel?.getTvShowsPaged()?.removeObservers(this)
             viewModel?.setUsername("Naufal Prakoso")
             viewModel?.getTvShowsPaged()?.observe(this, Observer { it ->
-                when(it.status){
+                when (it.status) {
                     Status.LOADING -> {
                         progress_bar.visibility = View.VISIBLE
                     }
@@ -62,10 +62,11 @@ class TvShowFragment : Fragment() {
                         progress_bar.visibility = View.GONE
 
                         adapter = TvShowPagedAdapter(it.data!!) {
-                            context?.startActivity<DetailMovieActivity>(
-                                Const.DETAIL_MOVIE to it.id,
-                                Const.MOVIE_TYPE to "tv_show"
-                            )
+                            val intent = Intent(context, DetailMovieActivity::class.java).apply {
+                                putExtra(Const.MOVIE_ID, it.id)
+                                putExtra(Const.MOVIE_TYPE, "tv_show")
+                            }
+                            context?.startActivity(intent)
                         }
                         adapter.notifyDataSetChanged()
                         adapter.submitList(it.data)

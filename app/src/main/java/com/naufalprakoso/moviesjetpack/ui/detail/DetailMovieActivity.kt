@@ -35,7 +35,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
         val movieType = intent.getStringExtra(Const.MOVIE_TYPE)
         viewModel = obtainViewModel(this)
-        viewModel.movieId = intent.getStringExtra(Const.DETAIL_MOVIE)
+        viewModel.movieId = intent.getIntExtra(Const.MOVIE_ID, 0)
         viewModel.setUsername("Naufal Prakoso")
 
         if (movieType == "movie") {
@@ -50,13 +50,12 @@ class DetailMovieActivity : AppCompatActivity() {
                         progress_bar.visibility = View.GONE
                         tv_title.text = movie?.title
                         tv_overview.text = movie?.overview
-                        tv_genre.text = movie?.genre
 
                         Glide.with(this)
-                            .load(movie?.image)
+                            .load("https://image.tmdb.org/t/p/w185/${movie?.poster_path}")
                             .into(img_poster)
 
-                        tv_year_duration.text = "(${movie?.year}) - ${movie?.duration}"
+                        tv_year_duration.text = movie?.release_date
 
                         viewModel.checkFavoriteMoviesState().observe(this, Observer { checkData ->
                             when (checkData.status) {
@@ -71,26 +70,35 @@ class DetailMovieActivity : AppCompatActivity() {
 
                                         fab.setOnClickListener { view ->
                                             viewModel.unsetFavoriteMovie(checkData.data[0])
-                                            Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                            Snackbar.make(
+                                                view,
+                                                "Deleted from your favorite list",
+                                                Snackbar.LENGTH_LONG
+                                            )
                                                 .setAction("Action", null).show()
 
                                             fab.setImageResource(R.drawable.ic_star_border_white)
                                         }
                                     } else {
                                         fab.setOnClickListener { view ->
-                                            val movieTvShow = FavoriteMovieEntity(
-                                                movie?.id.toString(),
-                                                movie?.title,
-                                                movie?.overview,
-                                                movie?.rating,
-                                                movie?.genre,
-                                                movie?.image,
-                                                movie?.year,
-                                                movie?.duration
-                                            )
+                                            val movieTvShow = movie?.let { movieEntity ->
+                                                FavoriteMovieEntity(
+                                                    movieEntity.id,
+                                                    movieEntity.title,
+                                                    movieEntity.overview,
+                                                    movieEntity.vote_average,
+                                                    movieEntity.poster_path,
+                                                    movieEntity.release_date,
+                                                    movieEntity.vote_count
+                                                )
+                                            }
 
                                             viewModel.setFavoriteMovie(movieTvShow)
-                                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
+                                            Snackbar.make(
+                                                view,
+                                                "Added to your favorite list",
+                                                Snackbar.LENGTH_LONG
+                                            )
                                                 .setAction("Action", null).show()
 
                                             fab.setImageResource(R.drawable.ic_star_white)
@@ -99,7 +107,8 @@ class DetailMovieActivity : AppCompatActivity() {
                                 }
                                 Status.ERROR -> {
                                     fab.isEnabled = false
-                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
                         })
@@ -122,13 +131,12 @@ class DetailMovieActivity : AppCompatActivity() {
                         progress_bar.visibility = View.GONE
                         tv_title.text = tvShow?.title
                         tv_overview.text = tvShow?.overview
-                        tv_genre.text = tvShow?.genre
 
                         Glide.with(this)
-                            .load(tvShow?.image)
+                            .load("https://image.tmdb.org/t/p/w185/${tvShow?.poster_path}")
                             .into(img_poster)
 
-                        tv_year_duration.text = "(${tvShow?.year}) - ${tvShow?.episode} episode(s)"
+                        tv_year_duration.text = tvShow?.release_date
 
                         viewModel.checkFavoriteTvShowsState().observe(this, Observer { checkData ->
                             when (checkData.status) {
@@ -143,26 +151,36 @@ class DetailMovieActivity : AppCompatActivity() {
 
                                         fab.setOnClickListener { view ->
                                             viewModel.unsetFavoriteTvShow(checkData.data[0])
-                                            Snackbar.make(view, "Deleted from your favorite list", Snackbar.LENGTH_LONG)
+                                            Snackbar.make(
+                                                view,
+                                                "Deleted from your favorite list",
+                                                Snackbar.LENGTH_LONG
+                                            )
                                                 .setAction("Action", null).show()
 
                                             fab.setImageResource(R.drawable.ic_star_border_white)
                                         }
                                     } else {
                                         fab.setOnClickListener { view ->
-                                            val movieTvShow = FavoriteTvShowEntity(
-                                                tvShow?.id.toString(),
-                                                tvShow?.title,
-                                                tvShow?.overview,
-                                                tvShow?.rating,
-                                                tvShow?.genre,
-                                                tvShow?.image,
-                                                tvShow?.year,
-                                                tvShow?.episode
-                                            )
+                                            val movieTvShow = tvShow?.let { tvShow ->
+                                                println("LogPosterDetail: ${tvShow.poster_path}")
+                                                FavoriteTvShowEntity(
+                                                    tvShow.id,
+                                                    tvShow.title,
+                                                    tvShow.overview,
+                                                    tvShow.vote_average,
+                                                    tvShow.poster_path,
+                                                    tvShow.release_date,
+                                                    tvShow.vote_count
+                                                )
+                                            }
 
                                             viewModel.setFavoriteTvShow(movieTvShow)
-                                            Snackbar.make(view, "Added to your favorite list", Snackbar.LENGTH_LONG)
+                                            Snackbar.make(
+                                                view,
+                                                "Added to your favorite list",
+                                                Snackbar.LENGTH_LONG
+                                            )
                                                 .setAction("Action", null).show()
 
                                             fab.setImageResource(R.drawable.ic_star_white)
@@ -171,7 +189,8 @@ class DetailMovieActivity : AppCompatActivity() {
                                 }
                                 Status.ERROR -> {
                                     fab.isEnabled = false
-                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
                         })

@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
-import org.jetbrains.anko.sdk25.listeners.onClick
 
 class MoviePagedAdapter(
     private val movies: List<MovieEntity>,
@@ -39,19 +38,22 @@ class MoviePagedAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @SuppressLint("SetTextI18n")
         fun bindItem(movie: MovieEntity, listener: (MovieEntity) -> Unit) {
+
             itemView.tv_title.text = movie.title
 
-            if (movie.overview?.length!! > 100) {
-                itemView.tv_overview.text = "${movie.overview.substring(0, 100)}..."
-            } else {
-                itemView.tv_overview.text = movie.overview
+            movie.overview?.let {
+                if (it.length > 100) {
+                    itemView.tv_overview.text = "${it.substring(0, 100)}..."
+                } else {
+                    itemView.tv_overview.text = movie.overview
+                }
             }
 
             Glide.with(itemView.context)
-                .load(movie.image)
+                .load("https://image.tmdb.org/t/p/w185/${movie.poster_path}")
                 .into(itemView.img_poster)
 
-            itemView.cv_movie.onClick {
+            itemView.cv_movie.setOnClickListener {
                 listener(movie)
             }
         }

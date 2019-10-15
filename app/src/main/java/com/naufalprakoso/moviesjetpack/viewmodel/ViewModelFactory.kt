@@ -13,9 +13,9 @@ class ViewModelFactory(
     private var movieRepository: MovieRepository? = null
 ) : ViewModelProvider.NewInstanceFactory() {
 
-    private var movieId: String? = ""
+    private var movieId: Int = 0
 
-    constructor(movieRepository: MovieRepository? = null, id: String? = "") : this(movieRepository) {
+    constructor(movieRepository: MovieRepository? = null, id: Int = 0) : this(movieRepository) {
         movieId = id
     }
 

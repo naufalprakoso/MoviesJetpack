@@ -3,7 +3,7 @@
 buildscript {
     ext {
         // App dependencies
-        kotlin_version = '1.3.41'
+        kotlin_version = '1.3.50'
         androidXVersion = '1.0.0'
         androidXTestVersion = '1.1.0'
         androidXAnnotations = '1.0.1'
@@ -11,10 +11,10 @@ buildscript {
         materialVersion = '1.0.0'
         cardVersion = '1.0.0'
         recyclerViewVersion = '1.0.0'
-        appCompatVersion = '1.0.2'
+        appCompatVersion = '1.1.0'
         constraintLayoutVersion = "1.1.3"
         roomVersion = '2.1.0'
-        archLifecycleVersion = '2.0.0'
+        archLifecycleVersion = '2.1.0'
         archVersion = '1.1.1'
         junitVersion = '4.12'
         hamcrestVersion = '1.3'
@@ -28,6 +28,8 @@ buildscript {
         idleResourceVersion = '3.2.0'
         anko_version = '0.10.8'
         daggerVersion = '2.23.1'
+        material_version = '1.0.0'
+        retrofit2_version = '2.6.0'
     }
     repositories {
         google()
@@ -35,7 +37,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

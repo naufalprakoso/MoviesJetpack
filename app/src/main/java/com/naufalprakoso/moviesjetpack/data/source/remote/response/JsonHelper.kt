@@ -22,7 +22,7 @@ class JsonHelper(
         }
     }
 
-    fun getMovie(movieId: String?): MovieResponse? {
+    fun getMovie(movieId: Int): MovieResponse? {
         var movieResponse: MovieResponse? = null
 
         try {
@@ -30,18 +30,25 @@ class JsonHelper(
             val listArray = responseObject.getJSONArray("results")
             for (i in 0 until listArray.length()) {
                 val movie = listArray.getJSONObject(i)
-                val id = movie.getString("id")
+                val id = movie.getInt("id")
 
                 if (id == movieId) {
                     val title = movie.getString("title")
                     val overview = movie.getString("overview")
-                    val rating = movie.getString("rating")
-                    val genre = movie.getString("genre")
-                    val image = movie.getString("image")
-                    val year = movie.getString("year")
-                    val duration = movie.getString("duration")
+                    val voteAverage = movie.getDouble("vote_average")
+                    val posterPath = movie.getString("poster_path")
+                    val releaseDate = movie.getString("release_date")
+                    val voteCount = movie.getInt("vote_count")
 
-                    movieResponse = MovieResponse(id, title, overview, rating, genre, image, year, duration)
+                    movieResponse = MovieResponse(
+                        id,
+                        title,
+                        overview,
+                        voteAverage,
+                        posterPath,
+                        releaseDate,
+                        voteCount
+                    )
                 }
             }
         } catch (e: JSONException) {
@@ -60,16 +67,23 @@ class JsonHelper(
             for (i in 0 until listArray.length()) {
                 val movie = listArray.getJSONObject(i)
 
-                val id = movie.getString("id")
+                val id = movie.getInt("id")
                 val title = movie.getString("title")
                 val overview = movie.getString("overview")
-                val rating = movie.getString("rating")
-                val genre = movie.getString("genre")
-                val image = movie.getString("image")
-                val year = movie.getString("year")
-                val duration = movie.getString("duration")
+                val voteAverage = movie.getDouble("vote_average")
+                val posterPath = movie.getString("poster_path")
+                val releaseDate = movie.getString("release_date")
+                val voteCount = movie.getInt("vote_count")
 
-                val movieResponse = MovieResponse(id, title, overview, rating, genre, image, year, duration)
+                val movieResponse = MovieResponse(
+                    id,
+                    title,
+                    overview,
+                    voteAverage,
+                    posterPath,
+                    releaseDate,
+                    voteCount
+                )
                 list.add(movieResponse)
             }
         } catch (e: JSONException) {
@@ -88,16 +102,23 @@ class JsonHelper(
             for (i in 0 until listArray.length()) {
                 val tvShow = listArray.getJSONObject(i)
 
-                val id = tvShow.getString("id")
+                val id = tvShow.getInt("id")
                 val title = tvShow.getString("title")
                 val overview = tvShow.getString("overview")
-                val rating = tvShow.getString("rating")
-                val genre = tvShow.getString("genre")
-                val image = tvShow.getString("image")
-                val year = tvShow.getString("year")
-                val episode = tvShow.getString("episode")
+                val voteAverage = tvShow.getDouble("vote_average")
+                val posterPath = tvShow.getString("poster_path")
+                val releaseDate = tvShow.getString("release_date")
+                val voteCount = tvShow.getInt("vote_count")
 
-                val tvShowResponse = TvShowResponse(id, title, overview, rating, genre, image, year, episode)
+                val tvShowResponse = TvShowResponse(
+                    id,
+                    title,
+                    overview,
+                    voteAverage,
+                    posterPath,
+                    releaseDate,
+                    voteCount
+                )
                 list.add(tvShowResponse)
             }
 
@@ -108,7 +129,7 @@ class JsonHelper(
         return list
     }
 
-    fun getTvShow(tvShowId: String?): TvShowResponse? {
+    fun getTvShow(tvShowId: Int): TvShowResponse? {
         var tvShowResponse: TvShowResponse? = null
 
         try {
@@ -116,18 +137,25 @@ class JsonHelper(
             val listArray = responseObject.getJSONArray("results")
             for (i in 0 until listArray.length()) {
                 val tvShow = listArray.getJSONObject(i)
-                val id = tvShow.getString("id")
+                val id = tvShow.getInt("id")
 
                 if (id == tvShowId) {
                     val title = tvShow.getString("title")
                     val overview = tvShow.getString("overview")
-                    val rating = tvShow.getString("rating")
-                    val genre = tvShow.getString("genre")
-                    val image = tvShow.getString("image")
-                    val year = tvShow.getString("year")
-                    val episode = tvShow.getString("episode")
+                    val voteAverage = tvShow.getDouble("vote_average")
+                    val posterPath = tvShow.getString("poster_path")
+                    val releaseDate = tvShow.getString("release_date")
+                    val voteCount = tvShow.getInt("vote_count")
 
-                    tvShowResponse = TvShowResponse(id, title, overview, rating, genre, image, year, episode)
+                    tvShowResponse = TvShowResponse(
+                        id,
+                        title,
+                        overview,
+                        voteAverage,
+                        posterPath,
+                        releaseDate,
+                        voteCount
+                    )
                 }
             }
 

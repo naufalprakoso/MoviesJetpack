@@ -1,103 +1,93 @@
 {
   "results": [{
-      "id": "61819",
+      "id": 61819,
       "title": "Daredevil Season 1",
       "overview": "Blinded as a young boy, Matt Murdock fights injustice by day as a lawyer and by night as the superhero Daredevil in Hell's Kitchen, New York City.",
-      "rating": "78",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/zFmJQzl6bFrdpHhDkxXmboyykqD.jpg",
-      "year": "2015",
-      "episode": "13"
+      "vote_average": 7.8,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/zFmJQzl6bFrdpHhDkxXmboyykqD.jpg",
+      "release_date": "2015",
+      "vote_count": 13
     },
     {
-      "id": "61829",
+      "id": 61829,
       "title": "Daredevil Season 2",
       "overview": "Dark forces are tearing Hell's Kitchen apart once again, but this time Daredevil may have to choose between the city and his friends.",
-      "rating": "88",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/opHoslNCxkgoCaGhfO66fvCSH83.jpg",
-      "year": "2016",
-      "episode": "13"
+      "vote_average": 8.8,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/opHoslNCxkgoCaGhfO66fvCSH83.jpg",
+      "release_date": "2016",
+      "vote_count": 13
     },
     {
-      "id": "61839",
+      "id": 61839,
       "title": "Daredevil Season 3",
       "overview": "Missing for months, Matt Murdock reemerges a broken man, putting into question his future as both vigilante Daredevil and lawyer Matthew Murdock. But when his archenemy Wilson Fisk is released from prison, Matt must choose between hiding from the world, or embracing his destiny as a hero.",
-      "rating": "99",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/zH6sgePlr1XX0jSZypbfQmr70Lf.jpg",
-      "year": "2018",
-      "episode": "13"
+      "vote_average": 9.9,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/zH6sgePlr1XX0jSZypbfQmr70Lf.jpg",
+      "release_date": "2018",
+      "vote_count": 13
     },
     {
-      "id": "66712",
+      "id": 66712,
       "title": "Stranger Things",
       "overview": "Strange things are afoot in Hawkins, Indiana, where a young boy's sudden disappearance unearths a young girl with otherworldly powers.",
-      "rating": "98",
-      "genre": "Adventure",
-      "image": "https://image.tmdb.org/t/p/w1280/xRTUb8oeQHGjyBWj7OOpkvUuvKO.jpg",
-      "year": "2016",
-      "episode": "8"
+      "vote_average": 9.8,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/xRTUb8oeQHGjyBWj7OOpkvUuvKO.jpg",
+      "release_date": "2016",
+      "vote_count": 8
     },
     {
-      "id": "66722",
+      "id": 66722,
       "title": "Stranger Things 2",
       "overview": "It's been nearly a year since Will's strange disappearance. But life's hardly back to normal in Hawkins. Not even close.",
-      "rating": "99",
-      "genre": "Adventure",
-      "image": "https://image.tmdb.org/t/p/w1280/lXS60geme1LlEob5Wgvj3KilClA.jpg",
-      "year": "2017",
-      "episode": "9"
+      "vote_average": 9.9,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+      "release_date": "2017",
+      "vote_count": 9
     },
     {
-      "id": "66732",
+      "id": 66732,
       "title": "Stranger Things 3",
       "overview": "One Summer can change Everything.",
-      "rating": "100",
-      "genre": "Adventure",
-      "image": "https://image.tmdb.org/t/p/w1280/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-      "year": "2019",
-      "episode": "8"
+      "vote_average": 100.0,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+      "release_date": "2019",
+      "vote_count": 8
     },
     {
-      "id": "75006",
+      "id": 75006,
       "title": "The Umbrella Academy",
       "overview": "A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.",
-      "rating": "77",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/uYHdIs5O8tiU5p6MvUPd2jElOH6.jpg",
-      "year": "2019",
-      "episode": "10"
+      "vote_average": 7.7,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/uYHdIs5O8tiU5p6MvUPd2jElOH6.jpg",
+      "release_date": "2019",
+      "vote_count": 10
     },
     {
-      "id": "38412",
+      "id": 38412,
       "title": "Jessica Jones",
       "overview": "Haunted by a traumatic past, Jessica Jones uses her gifts as a private eye to find her tormentor before he can harm anyone else in Hell's Kitchen.",
-      "rating": "87",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/4XbwCmEr72fQhMZ8CYONB2kxtXY.jpg",
-      "year": "2015",
-      "episode": "13"
+      "vote_average": 8.7,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/4XbwCmEr72fQhMZ8CYONB2kxtXY.jpg",
+      "release_date": "2015",
+      "vote_count": 444
     },
     {
-      "id": "38422",
+      "id": 38422,
       "title": "Jessica Jones Season 2",
       "overview": "Drowning in anger, Jessica Jones is forced to reckon with her past, her powers and her newfound fame as she dishes out her own messy form of justice. Finally ready to face her past, Jessica hunts down the source of her powers and uncovers a link to a shadowy killer who's terrorizing the city.",
-      "rating": "88",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/7pJP2YLAz1fcyqk0VlvcvxsyUCm.jpg",
-      "year": "2018",
-      "episode": "13"
+      "vote_average": 8.8,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/7pJP2YLAz1fcyqk0VlvcvxsyUCm.jpg",
+      "release_date": "2018",
+      "vote_count": 13
     },
     {
-      "id": "38432",
+      "id": 38432,
       "title": "Jessica Jones Season 3",
       "overview": "In the final season, Jessica matches wits with a calculating serial killer, and a newly powered Trish goes to extremes to stamp out evil.",
-      "rating": "89",
-      "genre": "Action",
-      "image": "https://image.tmdb.org/t/p/w1280/5HyBZrWyZVTTClijgk4ivITDMe.jpg",
-      "year": "2019",
-      "episode": "13"
+      "vote_average": 8.9,
+      "poster_path": "https://image.tmdb.org/t/p/w1280/5HyBZrWyZVTTClijgk4ivITDMe.jpg",
+      "release_date": "2019",
+      "vote_count": 13
     }
   ]
 }

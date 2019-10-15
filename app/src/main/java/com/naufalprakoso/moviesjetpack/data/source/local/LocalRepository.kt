@@ -23,19 +23,11 @@ class LocalRepository(
         }
     }
 
-    fun getAllMovies(): LiveData<List<MovieEntity>>{
-        return movieDao.getMovies()
-    }
-
-    fun getAllTvShows(): LiveData<List<TvShowEntity>>{
-        return movieDao.getTvShows()
-    }
-
-    fun getMovie(movieId: String): LiveData<MovieEntity>{
+    fun getMovie(movieId: Int): LiveData<MovieEntity>{
         return movieDao.getMovie(movieId)
     }
 
-    fun getTvShow(tvShowId: String): LiveData<TvShowEntity>{
+    fun getTvShow(tvShowId: Int): LiveData<TvShowEntity>{
         return movieDao.getTvShow(tvShowId)
     }
 
@@ -48,21 +40,11 @@ class LocalRepository(
     }
 
 //    Favorite
-    @Deprecated("This method not implemented a pagination")
-    fun getAllFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>{
-        return movieDao.getFavoriteMovies()
-    }
-
-    @Deprecated("This method not implemented a pagination")
-    fun getAllFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>{
-        return movieDao.getFavoriteTvShows()
-    }
-
-    fun getFavoriteMovie(movieId: String): LiveData<FavoriteMovieEntity>{
+    fun getFavoriteMovie(movieId: Int): LiveData<FavoriteMovieEntity>{
         return movieDao.getFavoriteMovie(movieId)
     }
 
-    fun getFavoriteTvShow(tvShowId: String): LiveData<FavoriteTvShowEntity>{
+    fun getFavoriteTvShow(tvShowId: Int): LiveData<FavoriteTvShowEntity>{
         return movieDao.getFavoriteTvShow(tvShowId)
     }
 
@@ -82,11 +64,11 @@ class LocalRepository(
         movieDao.deleteFavoriteTvShow(tvShow)
     }
 
-    fun checkFavoriteMovieState(movieId: String): LiveData<List<FavoriteMovieEntity>>{
+    fun checkFavoriteMovieState(movieId: Int): LiveData<List<FavoriteMovieEntity>>{
         return movieDao.checkFavoriteMovieState(movieId)
     }
 
-    fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>{
+    fun checkFavoriteTvShowState(tvShowId: Int): LiveData<List<FavoriteTvShowEntity>>{
         return movieDao.checkFavoriteTvShowState(tvShowId)
     }
 

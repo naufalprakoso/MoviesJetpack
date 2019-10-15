@@ -15,11 +15,10 @@ class TabsFavoriteAdapter(
         return mNumOfTabs
     }
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> FavoriteMovieFragment.newInstance()
-            1 -> FavoriteTvShowFragment.newInstance()
-            else -> null
+            else -> FavoriteTvShowFragment.newInstance()
         }
     }
 }

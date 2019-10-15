@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.naufalprakoso.moviesjetpack.data.source.MovieRepository
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.MovieEntity
-import androidx.lifecycle.Transformations
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import com.naufalprakoso.moviesjetpack.vo.Resource
 import androidx.paging.PagedList
+import com.naufalprakoso.moviesjetpack.utils.Const
 
 open class MovieViewModel(
     private val movieRepository: MovieRepository? = null
@@ -16,21 +16,11 @@ open class MovieViewModel(
 
     private val login = MutableLiveData<String>()
 
-    @Deprecated("This method not implemented a pagination")
-    fun getMovies(): LiveData<Resource<List<MovieEntity>>> =
-        Transformations.switchMap(login) { movieRepository?.allMovies() }
+    open fun getMoviesPaged(): LiveData<Resource<PagedList<MovieEntity>>>? =
+        movieRepository?.getMoviesPaged(Const.API)
 
-    @Deprecated("This method not implemented a pagination")
-    fun getFavoriteMovies(): LiveData<Resource<List<FavoriteMovieEntity>>> =
-        Transformations.switchMap(login) { movieRepository?.allFavoriteMovies() }
-
-    open fun getMoviesPaged(): LiveData<Resource<PagedList<MovieEntity>>>? {
-        return movieRepository?.getMoviesPaged()
-    }
-
-    fun getFavoriteMoviesPaged(): LiveData<Resource<PagedList<FavoriteMovieEntity>>>? {
-        return movieRepository?.getFavoriteMoviesPaged()
-    }
+    fun getFavoriteMoviesPaged(): LiveData<Resource<PagedList<FavoriteMovieEntity>>>? =
+        movieRepository?.getFavoriteMoviesPaged()
 
     open fun setUsername(username: String) {
         login.value = username

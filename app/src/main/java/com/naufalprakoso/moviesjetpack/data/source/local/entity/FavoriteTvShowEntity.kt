@@ -1,7 +1,5 @@
 package com.naufalprakoso.moviesjetpack.data.source.local.entity
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,7 +10,7 @@ data class FavoriteTvShowEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: String = "",
+    var id: Int = 0,
 
     @ColumnInfo(name = "title")
     val title: String? = "",
@@ -20,54 +18,15 @@ data class FavoriteTvShowEntity(
     @ColumnInfo(name = "overview")
     val overview: String? = "",
 
-    @ColumnInfo(name = "rating")
-    val rating: String? = "",
+    @ColumnInfo(name = "vote_average")
+    val vote_average: Double? = 0.0,
 
-    @ColumnInfo(name = "genre")
-    val genre: String? = "",
+    @ColumnInfo(name = "poster_path")
+    val poster_path: String? = "",
 
-    @ColumnInfo(name = "image")
-    val image: String? = "",
+    @ColumnInfo(name = "release_date")
+    val release_date: String? = "",
 
-    @ColumnInfo(name = "year")
-    val year: String? = "",
-
-    @ColumnInfo(name = "episode")
-    val episode: String? = ""
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(title)
-        parcel.writeString(overview)
-        parcel.writeString(rating)
-        parcel.writeString(genre)
-        parcel.writeString(image)
-        parcel.writeString(year)
-        parcel.writeString(episode)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<FavoriteTvShowEntity> {
-        override fun createFromParcel(parcel: Parcel): FavoriteTvShowEntity {
-            return FavoriteTvShowEntity(parcel)
-        }
-
-        override fun newArray(size: Int): Array<FavoriteTvShowEntity?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+    @ColumnInfo(name = "vote_count")
+    val vote_count: Int? = 0
+)

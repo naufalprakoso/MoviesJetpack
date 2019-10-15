@@ -48,13 +48,6 @@
 						android:text="@string/year_duration_sample"/>
 
 				<TextView
-						android:id="@+id/tv_genre"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textColor="@color/colorAccent"
-						android:text="@string/genre_sample"/>
-
-				<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:textStyle="bold"

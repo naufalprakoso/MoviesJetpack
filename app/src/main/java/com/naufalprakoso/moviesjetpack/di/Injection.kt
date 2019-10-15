@@ -24,7 +24,7 @@ class Injection {
 
             val appExecutors = AppExecutors()
 
-            return MovieRepository.getInstance(localRepository, remoteRepository, appExecutors)
+            return MovieRepository.getInstance(localRepository, appExecutors)
         }
     }
 }

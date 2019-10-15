@@ -11,19 +11,26 @@ import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteTvShowEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
-import org.jetbrains.anko.sdk25.listeners.onClick
 
 class FavoriteTvShowPagedAdapter(
     private val movies: List<FavoriteTvShowEntity>,
     private val listener: (FavoriteTvShowEntity) -> Unit
-) : PagedListAdapter<FavoriteTvShowEntity, FavoriteTvShowPagedAdapter.ViewHolder>(TvShowsDiffCallback) {
+) : PagedListAdapter<FavoriteTvShowEntity, FavoriteTvShowPagedAdapter.ViewHolder>(
+    TvShowsDiffCallback
+) {
 
     companion object {
         val TvShowsDiffCallback = object : DiffUtil.ItemCallback<FavoriteTvShowEntity>() {
-            override fun areItemsTheSame(oldItem: FavoriteTvShowEntity, newItem: FavoriteTvShowEntity): Boolean =
+            override fun areItemsTheSame(
+                oldItem: FavoriteTvShowEntity,
+                newItem: FavoriteTvShowEntity
+            ): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: FavoriteTvShowEntity, newItem: FavoriteTvShowEntity): Boolean =
+            override fun areContentsTheSame(
+                oldItem: FavoriteTvShowEntity,
+                newItem: FavoriteTvShowEntity
+            ): Boolean =
                 oldItem == newItem
         }
     }
@@ -53,11 +60,13 @@ class FavoriteTvShowPagedAdapter(
                 itemView.tv_overview.text = movie.overview
             }
 
+            println("LogPoster: https://image.tmdb.org/t/p/w185/${movie.poster_path}")
+
             Glide.with(itemView.context)
-                .load(movie.image)
+                .load("https://image.tmdb.org/t/p/w185/${movie.poster_path}")
                 .into(itemView.img_poster)
 
-            itemView.cv_movie.onClick {
+            itemView.cv_movie.setOnClickListener {
                 listener(movie)
             }
         }

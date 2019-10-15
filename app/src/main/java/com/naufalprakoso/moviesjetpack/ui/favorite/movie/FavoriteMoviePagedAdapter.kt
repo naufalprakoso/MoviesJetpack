@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.FavoriteMovieEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
-import org.jetbrains.anko.sdk25.listeners.onClick
 
 class FavoriteMoviePagedAdapter(
     private val movies: List<FavoriteMovieEntity>,
@@ -54,10 +53,10 @@ class FavoriteMoviePagedAdapter(
             }
 
             Glide.with(itemView.context)
-                .load(movie.image)
+                .load("https://image.tmdb.org/t/p/w185/${movie.poster_path}")
                 .into(itemView.img_poster)
 
-            itemView.cv_movie.onClick {
+            itemView.cv_movie.setOnClickListener {
                 listener(movie)
             }
         }

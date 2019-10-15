@@ -1,5 +1,6 @@
 package com.naufalprakoso.moviesjetpack.ui.movie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,7 +17,6 @@ import com.naufalprakoso.moviesjetpack.utils.Const
 import com.naufalprakoso.moviesjetpack.viewmodel.ViewModelFactory
 import com.naufalprakoso.moviesjetpack.vo.Status
 import kotlinx.android.synthetic.main.fragment_movie.*
-import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 import androidx.lifecycle.ViewModelProvider
 
@@ -63,10 +63,12 @@ class MovieFragment : Fragment() {
                         progress_bar.visibility = View.GONE
 
                         adapter = MoviePagedAdapter(it.data!!) {
-                            context?.startActivity<DetailMovieActivity>(
-                                Const.DETAIL_MOVIE to it.id,
-                                Const.MOVIE_TYPE to "movie"
-                            )
+                            val intent = Intent(context, DetailMovieActivity::class.java).apply {
+                                putExtra(Const.MOVIE_ID, it.id)
+                                putExtra(Const.MOVIE_TYPE, "movie")
+                            }
+
+                            context?.startActivity(intent)
                         }
                         adapter.submitList(it.data)
                         adapter.notifyDataSetChanged()

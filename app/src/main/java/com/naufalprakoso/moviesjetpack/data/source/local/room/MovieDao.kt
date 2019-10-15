@@ -11,21 +11,11 @@ import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 
 @Dao
 interface MovieDao{
-    @Deprecated("This method not implemented a pagination")
-    @WorkerThread
-    @Query("SELECT * FROM movies")
-    fun getMovies(): LiveData<List<MovieEntity>>
-
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    fun getMovie(movieId: String): LiveData<MovieEntity>
-
-    @Deprecated("This method not implemented a pagination")
-    @WorkerThread
-    @Query("SELECT * FROM tvshows")
-    fun getTvShows(): LiveData<List<TvShowEntity>>
+    fun getMovie(movieId: Int): LiveData<MovieEntity>
 
     @Query("SELECT * FROM tvshows WHERE id = :tvShowId")
-    fun getTvShow(tvShowId: String): LiveData<TvShowEntity>
+    fun getTvShow(tvShowId: Int): LiveData<TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movies: List<MovieEntity>)
@@ -34,21 +24,11 @@ interface MovieDao{
     fun insertTvShow(tvShows: List<TvShowEntity>)
 
     //    Favorite
-    @Deprecated("This method not implemented a pagination")
-    @WorkerThread
-    @Query("SELECT * FROM fav_movies")
-    fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>
-
     @Query("SELECT * FROM fav_movies WHERE id = :movieId")
-    fun getFavoriteMovie(movieId: String): LiveData<FavoriteMovieEntity>
-
-    @Deprecated("This method not implemented a pagination")
-    @WorkerThread
-    @Query("SELECT * FROM fav_tvshows")
-    fun getFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>
+    fun getFavoriteMovie(movieId: Int): LiveData<FavoriteMovieEntity>
 
     @Query("SELECT * FROM fav_tvshows WHERE id = :tvShowId")
-    fun getFavoriteTvShow(tvShowId: String): LiveData<FavoriteTvShowEntity>
+    fun getFavoriteTvShow(tvShowId: Int): LiveData<FavoriteTvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteMovie(movie: FavoriteMovieEntity)
@@ -64,11 +44,11 @@ interface MovieDao{
 
     @WorkerThread
     @Query("SELECT id FROM fav_movies WHERE id = :movieId")
-    fun checkFavoriteMovieState(movieId: String): LiveData<List<FavoriteMovieEntity>>
+    fun checkFavoriteMovieState(movieId: Int): LiveData<List<FavoriteMovieEntity>>
 
     @WorkerThread
     @Query("SELECT id FROM fav_tvshows WHERE id = :tvShowId")
-    fun checkFavoriteTvShowState(tvShowId: String): LiveData<List<FavoriteTvShowEntity>>
+    fun checkFavoriteTvShowState(tvShowId: Int): LiveData<List<FavoriteTvShowEntity>>
 
     // Paging
     @WorkerThread

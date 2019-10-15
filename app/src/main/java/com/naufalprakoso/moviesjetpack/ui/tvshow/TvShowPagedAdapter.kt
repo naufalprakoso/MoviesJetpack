@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.naufalprakoso.moviesjetpack.R
 import com.naufalprakoso.moviesjetpack.data.source.local.entity.TvShowEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
-import org.jetbrains.anko.sdk25.listeners.onClick
 
 class TvShowPagedAdapter(
     private val tvShows: List<TvShowEntity>,
@@ -48,10 +47,10 @@ class TvShowPagedAdapter(
             }
 
             Glide.with(itemView.context)
-                .load(tvShow.image)
+                .load("https://image.tmdb.org/t/p/w185/${tvShow.poster_path}")
                 .into(itemView.img_poster)
 
-            itemView.cv_movie.onClick {
+            itemView.cv_movie.setOnClickListener {
                 listener(tvShow)
             }
         }
